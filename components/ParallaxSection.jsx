@@ -1,6 +1,6 @@
 import styled from 'styled-components'
 
-const Section = ({
+const ParallaSection = ({
     children,
 }) => (
     <Wrapper>
@@ -8,11 +8,8 @@ const Section = ({
     </Wrapper>
 )
 
-export default Section
+export default ParallaxSection
 
 const Wrapper = styled.section`
     display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
 `
