@@ -5,7 +5,7 @@ const SectionTitle = ({
     title,
 }) => (
     <Wrapper>
-        <h2>{title}</h2>
+        <h2 style={{fontFamily: 'Oooh Baby', fontSize: '34px'}}>{title}</h2>
         {children && children}
     </Wrapper>
 )
@@ -13,9 +13,9 @@ const SectionTitle = ({
 export default SectionTitle
 
 const Wrapper = styled.div`
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 50vw;
-    height: 100vh;
+    padding: 40px 0;
 `
