@@ -11,8 +11,5 @@ const Section = ({
 export default Section
 
 const Wrapper = styled.section`
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100vh;
+    padding: 60px 0;
 `

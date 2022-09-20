@@ -17,8 +17,7 @@ export const Layout = (props) => {
         <meta name="theme-color" content="#ffffff" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
-        <link href="https://fonts.googleapis.com/css2?family=Oooh+Baby&family=WindSong&display=swap" rel="stylesheet"></link>
-        {/* <link href="https://fonts.googleapis.com/css2?family=Norican&family=Nunito+Sans:wght@200;400;600&display=swap" rel="stylesheet" /> */}
+        <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400&family=Oooh+Baby&family=WindSong&display=swap" rel="stylesheet"></link>
       </Head>
       <Header>
         <LogoWrapper>
@@ -33,7 +32,7 @@ export const Layout = (props) => {
           <NavLink href="/">Kontakt a cena</NavLink>
         </nav>
       </Header>
-      <main style={{padding: '0 20px'}}>{props.children}</main>
+      <main>{props.children}</main>
     </div>
   )
 }

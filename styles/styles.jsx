@@ -29,67 +29,64 @@ export const IntroText = styled.div`
     text-shadow: 0 1px 3px rgba(255,255,255,.3);
 `
 
-export const IntroName = styled.div`
-    font-size: 40px;
-    font-family: 'Norican', cursive;
+export const ReasonsWrapper = styled.div`
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
 `
 
-export const IntroHeadline = styled.h1`
-    font-size: 60px;
-    font-family: 'Norican', cursive;
-`
-
-export const ProfileImage = styled.div`
-    position: absolute;
-    top: 50%;
-    left: 100%;
-    transform: translate(-50%, -50%);
-    width: 200px;
-    height: 200px;
-`
-
-export const ProcessSection = styled.div`
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    grid-template-rows: repeat(5, 1fr);
+export const ReasonBubble = styled.div`
+    flex: 0 0 300px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 30px;
+    border-radius: 50%;
     padding: 30px;
-    width: 50vw;
-    background: url('/process-bg.svg');
-    background-size: cover;
-    background-color: yellow;
+    height: 300px;
     text-align: center;
+    background: #eee;
 `
 
-export const ProcessStepText = styled.div`
+export const ReasonBubbleTitle = styled.div`
+    margin-bottom: 20px;
+    font-family: 'Oooh Baby';
+    font-size: 26px;
+`
+
+export const MethodWrapper = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background: url('/method.jpg');
+    background-attachment: fixed;
+    background-size: cover;
+`
+
+export const MethodContent = styled.div`
+    padding: 60px;
+    max-width: 600px;
+    text-align: center;
+    background: #fff;
+`
+
+export const ProcessWrapper = styled.div`
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+`
+
+export const ProcessStep = styled.div`
     position: relative;
-    margin: 30px 0;
-    padding: 10px 0;
+    margin-bottom: 10px;
     max-width: 400px;
     text-align: center;
-
-    &:not(:first-child) {
-        &:before,
-        &:after {
-            content: '';
-            position: absolute;
-            left: 50%;
-            transfrom: translateX(-50%);
-            width: 2px;
-            height: 30px;
-            background: #aaa;
-            text-align: center;
-        }
-
-        &:before {
-            bottom: 100%;
-        }
-
-        &:after {
-            top: 100%;
-        }
-    }
 `
 
-export const ProcessStepImageWrapper = styled.div`
-    position: relative;
+export const ProcessPipe = styled.div`
+    width: 2px;
+    height: 30px;
+    background: #aaa;
 `

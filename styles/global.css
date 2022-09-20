@@ -5,6 +5,7 @@ body {
 * {
     margin: 0;
     box-sizing: border-box;
-    font-family: 'Nunito Sans', sans-serif;
+    font-size: 18px;
+    font-family: 'Dosis', sans-serif;
     color: #23232B;
 }

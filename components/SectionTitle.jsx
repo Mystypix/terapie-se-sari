@@ -1,21 +1,16 @@
 import styled from 'styled-components'
 
 const SectionTitle = ({
-    children,
     title,
 }) => (
-    <Wrapper>
-        <h2 style={{fontFamily: 'Oooh Baby', fontSize: '34px'}}>{title}</h2>
-        {children && children}
-    </Wrapper>
+    <Wrapper>{title}</Wrapper>
 )
 
 export default SectionTitle
 
-const Wrapper = styled.div`
-    position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 40px 0;
+const Wrapper = styled.h2`
+    padding-bottom: 40px;
+    font-family: 'Oooh Baby'; 
+    font-size: 34px;
+    text-align: center;
 `
