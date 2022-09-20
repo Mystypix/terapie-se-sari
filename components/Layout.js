@@ -16,7 +16,7 @@ export const Layout = (props) => {
         <meta name="msapplication-TileColor" content="#da532c" />
         <meta name="theme-color" content="#ffffff" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true' />
         <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400&family=Oooh+Baby&family=WindSong&display=swap" rel="stylesheet"></link>
       </Head>
       <Header>
