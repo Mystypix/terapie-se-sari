@@ -35,26 +35,6 @@ export const ReasonsWrapper = styled.div`
     justify-content: center;
 `
 
-export const ReasonBubble = styled.div`
-    flex: 0 0 300px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    margin: 30px;
-    border-radius: 50%;
-    padding: 30px;
-    height: 300px;
-    text-align: center;
-    background: #eee;
-`
-
-export const ReasonBubbleTitle = styled.div`
-    margin-bottom: 20px;
-    font-family: 'Oooh Baby';
-    font-size: 26px;
-`
-
 export const MethodWrapper = styled.div`
     display: flex;
     align-items: center;
@@ -80,13 +60,42 @@ export const ProcessWrapper = styled.div`
 
 export const ProcessStep = styled.div`
     position: relative;
-    margin-bottom: 10px;
     max-width: 400px;
     text-align: center;
 `
 
 export const ProcessPipe = styled.div`
-    width: 2px;
-    height: 30px;
-    background: #aaa;
+    position: relative;
+    margin: 10px 0;
+    border: 1px dashed #aaa;
+    width: 0;
+    height: 50px;
+`
+
+export const ResolutionsWrapper = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    margin: 0 auto;
+    max-width: 800px;
+`
+
+export const ResolutionTitles = styled.div`
+    position: relative;
+    z-index: 1;
+`
+
+export const ResolutionTexts = styled.div`
+    position: relative;
+`
+
+export const GalleryWrapper = styled.div`
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 300px;
+    gap: 20px;
+    padding: 0 30px;
+`
+
+export const ImageWrapper = styled.div`
+    position: relative;
 `

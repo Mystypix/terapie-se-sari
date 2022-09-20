@@ -1,8 +1,29 @@
 fragment PageParts on Page {
-  body
-}
-
-fragment PostParts on Post {
-  title
-  body
+  reasonsTitle
+  reasons {
+    __typename
+    reasonTitle
+    reasonText
+  }
+  methodTitle
+  methodText
+  resolutionTitle
+  resolutions {
+    __typename
+    resolutionTitle
+    resolutionText
+  }
+  processTitle
+  processSteps {
+    __typename
+    processStepText
+  }
+  aboutTitle
+  aboutText
+  reviewsTitle
+  reviews {
+    __typename
+    reviewName
+    reviewText
+  }
 }

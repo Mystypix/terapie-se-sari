@@ -50,13 +50,10 @@ type Query {
   document(collection: String, relativePath: String): DocumentNode!
   page(relativePath: String): Page!
   pageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageFilter): PageConnection!
-  post(relativePath: String): Post!
-  postConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PostFilter): PostConnection!
 }
 
 input DocumentFilter {
   page: PageFilter
-  post: PostFilter
 }
 
 type DocumentConnectionEdges {
@@ -82,13 +79,55 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter): DocumentConnection!
 }
 
-union DocumentNode = Page | Post
+union DocumentNode = Page
+
+type PageReasons {
+  reasonTitle: String
+  reasonText: String
+}
+
+type PageResolutions {
+  resolutionTitle: String
+  resolutionText: JSON
+}
+
+type PageProcessSteps {
+  processStepText: String
+}
+
+type PageReviews {
+  reviewName: String
+  reviewText: JSON
+}
 
 type Page implements Node & Document {
-  body: JSON
+  reasonsTitle: String
+  reasons: [PageReasons]
+  methodTitle: String
+  methodText: JSON
+  resolutionTitle: String
+  resolutions: [PageResolutions]
+  processTitle: String
+  processSteps: [PageProcessSteps]
+  aboutTitle: String
+  aboutText: JSON
+  reviewsTitle: String
+  reviews: [PageReviews]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
+}
+
+input StringFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input PageReasonsFilter {
+  reasonTitle: StringFilter
+  reasonText: StringFilter
 }
 
 input RichTextFilter {
@@ -97,8 +136,33 @@ input RichTextFilter {
   exists: Boolean
 }
 
+input PageResolutionsFilter {
+  resolutionTitle: StringFilter
+  resolutionText: RichTextFilter
+}
+
+input PageProcessStepsFilter {
+  processStepText: StringFilter
+}
+
+input PageReviewsFilter {
+  reviewName: StringFilter
+  reviewText: RichTextFilter
+}
+
 input PageFilter {
-  body: RichTextFilter
+  reasonsTitle: StringFilter
+  reasons: PageReasonsFilter
+  methodTitle: StringFilter
+  methodText: RichTextFilter
+  resolutionTitle: StringFilter
+  resolutions: PageResolutionsFilter
+  processTitle: StringFilter
+  processSteps: PageProcessStepsFilter
+  aboutTitle: StringFilter
+  aboutText: RichTextFilter
+  reviewsTitle: StringFilter
+  reviews: PageReviewsFilter
 }
 
 type PageConnectionEdges {
@@ -112,37 +176,6 @@ type PageConnection implements Connection {
   edges: [PageConnectionEdges]
 }
 
-type Post implements Node & Document {
-  title: String
-  body: String
-  id: ID!
-  _sys: SystemInfo!
-  _values: JSON!
-}
-
-input StringFilter {
-  startsWith: String
-  eq: String
-  exists: Boolean
-  in: [String]
-}
-
-input PostFilter {
-  title: StringFilter
-  body: StringFilter
-}
-
-type PostConnectionEdges {
-  cursor: String!
-  node: Post
-}
-
-type PostConnection implements Connection {
-  pageInfo: PageInfo!
-  totalCount: Float!
-  edges: [PostConnectionEdges]
-}
-
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
@@ -150,22 +183,44 @@ type Mutation {
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   updatePage(relativePath: String!, params: PageMutation!): Page!
   createPage(relativePath: String!, params: PageMutation!): Page!
-  updatePost(relativePath: String!, params: PostMutation!): Post!
-  createPost(relativePath: String!, params: PostMutation!): Post!
 }
 
 input DocumentMutation {
   page: PageMutation
-  post: PostMutation
+}
+
+input PageReasonsMutation {
+  reasonTitle: String
+  reasonText: String
+}
+
+input PageResolutionsMutation {
+  resolutionTitle: String
+  resolutionText: JSON
+}
+
+input PageProcessStepsMutation {
+  processStepText: String
+}
+
+input PageReviewsMutation {
+  reviewName: String
+  reviewText: JSON
 }
 
 input PageMutation {
-  body: JSON
-}
-
-input PostMutation {
-  title: String
-  body: String
+  reasonsTitle: String
+  reasons: [PageReasonsMutation]
+  methodTitle: String
+  methodText: JSON
+  resolutionTitle: String
+  resolutions: [PageResolutionsMutation]
+  processTitle: String
+  processSteps: [PageProcessStepsMutation]
+  aboutTitle: String
+  aboutText: JSON
+  reviewsTitle: String
+  reviews: [PageReviewsMutation]
 }
 
 schema {

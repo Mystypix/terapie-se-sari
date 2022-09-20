@@ -75,8 +75,6 @@ export type Query = {
   document: DocumentNode;
   page: Page;
   pageConnection: PageConnection;
-  post: Post;
-  postConnection: PostConnection;
 };
 
 
@@ -115,24 +113,8 @@ export type QueryPageConnectionArgs = {
   filter?: InputMaybe<PageFilter>;
 };
 
-
-export type QueryPostArgs = {
-  relativePath?: InputMaybe<Scalars['String']>;
-};
-
-
-export type QueryPostConnectionArgs = {
-  before?: InputMaybe<Scalars['String']>;
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Float']>;
-  last?: InputMaybe<Scalars['Float']>;
-  sort?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<PostFilter>;
-};
-
 export type DocumentFilter = {
   page?: InputMaybe<PageFilter>;
-  post?: InputMaybe<PostFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -171,14 +153,60 @@ export type CollectionDocumentsArgs = {
   filter?: InputMaybe<DocumentFilter>;
 };
 
-export type DocumentNode = Page | Post;
+export type DocumentNode = Page;
+
+export type PageReasons = {
+  __typename?: 'PageReasons';
+  reasonTitle?: Maybe<Scalars['String']>;
+  reasonText?: Maybe<Scalars['String']>;
+};
+
+export type PageResolutions = {
+  __typename?: 'PageResolutions';
+  resolutionTitle?: Maybe<Scalars['String']>;
+  resolutionText?: Maybe<Scalars['JSON']>;
+};
+
+export type PageProcessSteps = {
+  __typename?: 'PageProcessSteps';
+  processStepText?: Maybe<Scalars['String']>;
+};
+
+export type PageReviews = {
+  __typename?: 'PageReviews';
+  reviewName?: Maybe<Scalars['String']>;
+  reviewText?: Maybe<Scalars['JSON']>;
+};
 
 export type Page = Node & Document & {
   __typename?: 'Page';
-  body?: Maybe<Scalars['JSON']>;
+  reasonsTitle?: Maybe<Scalars['String']>;
+  reasons?: Maybe<Array<Maybe<PageReasons>>>;
+  methodTitle?: Maybe<Scalars['String']>;
+  methodText?: Maybe<Scalars['JSON']>;
+  resolutionTitle?: Maybe<Scalars['String']>;
+  resolutions?: Maybe<Array<Maybe<PageResolutions>>>;
+  processTitle?: Maybe<Scalars['String']>;
+  processSteps?: Maybe<Array<Maybe<PageProcessSteps>>>;
+  aboutTitle?: Maybe<Scalars['String']>;
+  aboutText?: Maybe<Scalars['JSON']>;
+  reviewsTitle?: Maybe<Scalars['String']>;
+  reviews?: Maybe<Array<Maybe<PageReviews>>>;
   id: Scalars['ID'];
   _sys: SystemInfo;
   _values: Scalars['JSON'];
+};
+
+export type StringFilter = {
+  startsWith?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']>;
+  exists?: InputMaybe<Scalars['Boolean']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type PageReasonsFilter = {
+  reasonTitle?: InputMaybe<StringFilter>;
+  reasonText?: InputMaybe<StringFilter>;
 };
 
 export type RichTextFilter = {
@@ -187,8 +215,33 @@ export type RichTextFilter = {
   exists?: InputMaybe<Scalars['Boolean']>;
 };
 
+export type PageResolutionsFilter = {
+  resolutionTitle?: InputMaybe<StringFilter>;
+  resolutionText?: InputMaybe<RichTextFilter>;
+};
+
+export type PageProcessStepsFilter = {
+  processStepText?: InputMaybe<StringFilter>;
+};
+
+export type PageReviewsFilter = {
+  reviewName?: InputMaybe<StringFilter>;
+  reviewText?: InputMaybe<RichTextFilter>;
+};
+
 export type PageFilter = {
-  body?: InputMaybe<RichTextFilter>;
+  reasonsTitle?: InputMaybe<StringFilter>;
+  reasons?: InputMaybe<PageReasonsFilter>;
+  methodTitle?: InputMaybe<StringFilter>;
+  methodText?: InputMaybe<RichTextFilter>;
+  resolutionTitle?: InputMaybe<StringFilter>;
+  resolutions?: InputMaybe<PageResolutionsFilter>;
+  processTitle?: InputMaybe<StringFilter>;
+  processSteps?: InputMaybe<PageProcessStepsFilter>;
+  aboutTitle?: InputMaybe<StringFilter>;
+  aboutText?: InputMaybe<RichTextFilter>;
+  reviewsTitle?: InputMaybe<StringFilter>;
+  reviews?: InputMaybe<PageReviewsFilter>;
 };
 
 export type PageConnectionEdges = {
@@ -204,40 +257,6 @@ export type PageConnection = Connection & {
   edges?: Maybe<Array<Maybe<PageConnectionEdges>>>;
 };
 
-export type Post = Node & Document & {
-  __typename?: 'Post';
-  title?: Maybe<Scalars['String']>;
-  body?: Maybe<Scalars['String']>;
-  id: Scalars['ID'];
-  _sys: SystemInfo;
-  _values: Scalars['JSON'];
-};
-
-export type StringFilter = {
-  startsWith?: InputMaybe<Scalars['String']>;
-  eq?: InputMaybe<Scalars['String']>;
-  exists?: InputMaybe<Scalars['Boolean']>;
-  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
-};
-
-export type PostFilter = {
-  title?: InputMaybe<StringFilter>;
-  body?: InputMaybe<StringFilter>;
-};
-
-export type PostConnectionEdges = {
-  __typename?: 'PostConnectionEdges';
-  cursor: Scalars['String'];
-  node?: Maybe<Post>;
-};
-
-export type PostConnection = Connection & {
-  __typename?: 'PostConnection';
-  pageInfo: PageInfo;
-  totalCount: Scalars['Float'];
-  edges?: Maybe<Array<Maybe<PostConnectionEdges>>>;
-};
-
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -246,8 +265,6 @@ export type Mutation = {
   createDocument: DocumentNode;
   updatePage: Page;
   createPage: Page;
-  updatePost: Post;
-  createPost: Post;
 };
 
 
@@ -289,42 +306,52 @@ export type MutationCreatePageArgs = {
   params: PageMutation;
 };
 
-
-export type MutationUpdatePostArgs = {
-  relativePath: Scalars['String'];
-  params: PostMutation;
-};
-
-
-export type MutationCreatePostArgs = {
-  relativePath: Scalars['String'];
-  params: PostMutation;
-};
-
 export type DocumentMutation = {
   page?: InputMaybe<PageMutation>;
-  post?: InputMaybe<PostMutation>;
+};
+
+export type PageReasonsMutation = {
+  reasonTitle?: InputMaybe<Scalars['String']>;
+  reasonText?: InputMaybe<Scalars['String']>;
+};
+
+export type PageResolutionsMutation = {
+  resolutionTitle?: InputMaybe<Scalars['String']>;
+  resolutionText?: InputMaybe<Scalars['JSON']>;
+};
+
+export type PageProcessStepsMutation = {
+  processStepText?: InputMaybe<Scalars['String']>;
+};
+
+export type PageReviewsMutation = {
+  reviewName?: InputMaybe<Scalars['String']>;
+  reviewText?: InputMaybe<Scalars['JSON']>;
 };
 
 export type PageMutation = {
-  body?: InputMaybe<Scalars['JSON']>;
+  reasonsTitle?: InputMaybe<Scalars['String']>;
+  reasons?: InputMaybe<Array<InputMaybe<PageReasonsMutation>>>;
+  methodTitle?: InputMaybe<Scalars['String']>;
+  methodText?: InputMaybe<Scalars['JSON']>;
+  resolutionTitle?: InputMaybe<Scalars['String']>;
+  resolutions?: InputMaybe<Array<InputMaybe<PageResolutionsMutation>>>;
+  processTitle?: InputMaybe<Scalars['String']>;
+  processSteps?: InputMaybe<Array<InputMaybe<PageProcessStepsMutation>>>;
+  aboutTitle?: InputMaybe<Scalars['String']>;
+  aboutText?: InputMaybe<Scalars['JSON']>;
+  reviewsTitle?: InputMaybe<Scalars['String']>;
+  reviews?: InputMaybe<Array<InputMaybe<PageReviewsMutation>>>;
 };
 
-export type PostMutation = {
-  title?: InputMaybe<Scalars['String']>;
-  body?: InputMaybe<Scalars['String']>;
-};
-
-export type PagePartsFragment = { __typename?: 'Page', body?: any | null | undefined };
-
-export type PostPartsFragment = { __typename?: 'Post', title?: string | null | undefined, body?: string | null | undefined };
+export type PagePartsFragment = { __typename?: 'Page', reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, reasons?: Array<{ __typename: 'PageReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'PageResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'PageProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'PageReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined };
 
 export type PageQueryVariables = Exact<{
   relativePath: Scalars['String'];
 }>;
 
 
-export type PageQuery = { __typename?: 'Query', page: { __typename?: 'Page', id: string, body?: any | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type PageQuery = { __typename?: 'Query', page: { __typename?: 'Page', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'PageReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'PageResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'PageProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'PageReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined } };
 
 export type PageConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']>;
@@ -336,36 +363,37 @@ export type PageConnectionQueryVariables = Exact<{
 }>;
 
 
-export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, edges?: Array<{ __typename?: 'PageConnectionEdges', node?: { __typename?: 'Page', id: string, body?: any | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null | undefined } | null | undefined> | null | undefined } };
-
-export type PostQueryVariables = Exact<{
-  relativePath: Scalars['String'];
-}>;
-
-
-export type PostQuery = { __typename?: 'Query', post: { __typename?: 'Post', id: string, title?: string | null | undefined, body?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
-
-export type PostConnectionQueryVariables = Exact<{
-  before?: InputMaybe<Scalars['String']>;
-  after?: InputMaybe<Scalars['String']>;
-  first?: InputMaybe<Scalars['Float']>;
-  last?: InputMaybe<Scalars['Float']>;
-  sort?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<PostFilter>;
-}>;
-
-
-export type PostConnectionQuery = { __typename?: 'Query', postConnection: { __typename?: 'PostConnection', totalCount: number, edges?: Array<{ __typename?: 'PostConnectionEdges', node?: { __typename?: 'Post', id: string, title?: string | null | undefined, body?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null | undefined } | null | undefined> | null | undefined } };
+export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, edges?: Array<{ __typename?: 'PageConnectionEdges', node?: { __typename?: 'Page', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'PageReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'PageResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'PageProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'PageReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
 
 export const PagePartsFragmentDoc = gql`
     fragment PageParts on Page {
-  body
-}
-    `;
-export const PostPartsFragmentDoc = gql`
-    fragment PostParts on Post {
-  title
-  body
+  reasonsTitle
+  reasons {
+    __typename
+    reasonTitle
+    reasonText
+  }
+  methodTitle
+  methodText
+  resolutionTitle
+  resolutions {
+    __typename
+    resolutionTitle
+    resolutionText
+  }
+  processTitle
+  processSteps {
+    __typename
+    processStepText
+  }
+  aboutTitle
+  aboutText
+  reviewsTitle
+  reviews {
+    __typename
+    reviewName
+    reviewText
+  }
 }
     `;
 export const PageDocument = gql`
@@ -416,54 +444,6 @@ export const PageConnectionDocument = gql`
   }
 }
     ${PagePartsFragmentDoc}`;
-export const PostDocument = gql`
-    query post($relativePath: String!) {
-  post(relativePath: $relativePath) {
-    ... on Document {
-      _sys {
-        filename
-        basename
-        breadcrumbs
-        path
-        relativePath
-        extension
-      }
-      id
-    }
-    ...PostParts
-  }
-}
-    ${PostPartsFragmentDoc}`;
-export const PostConnectionDocument = gql`
-    query postConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PostFilter) {
-  postConnection(
-    before: $before
-    after: $after
-    first: $first
-    last: $last
-    sort: $sort
-    filter: $filter
-  ) {
-    totalCount
-    edges {
-      node {
-        ... on Document {
-          _sys {
-            filename
-            basename
-            breadcrumbs
-            path
-            relativePath
-            extension
-          }
-          id
-        }
-        ...PostParts
-      }
-    }
-  }
-}
-    ${PostPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -472,12 +452,6 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     pageConnection(variables?: PageConnectionQueryVariables, options?: C): Promise<{data: PageConnectionQuery, variables: PageConnectionQueryVariables, query: string}> {
         return requester<{data: PageConnectionQuery, variables: PageConnectionQueryVariables, query: string}, PageConnectionQueryVariables>(PageConnectionDocument, variables, options);
-      },
-    post(variables: PostQueryVariables, options?: C): Promise<{data: PostQuery, variables: PostQueryVariables, query: string}> {
-        return requester<{data: PostQuery, variables: PostQueryVariables, query: string}, PostQueryVariables>(PostDocument, variables, options);
-      },
-    postConnection(variables?: PostConnectionQueryVariables, options?: C): Promise<{data: PostConnectionQuery, variables: PostConnectionQueryVariables, query: string}> {
-        return requester<{data: PostConnectionQuery, variables: PostConnectionQueryVariables, query: string}, PostConnectionQueryVariables>(PostConnectionDocument, variables, options);
       }
     };
   }
