@@ -2,8 +2,9 @@ import styled from 'styled-components'
 
 const Section = ({
     children,
+    id,
 }) => (
-    <Wrapper>
+    <Wrapper id={id}>
         {children}
     </Wrapper>
 )

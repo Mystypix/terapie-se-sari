@@ -52,11 +52,14 @@ type Query {
   czechConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: CzechFilter): CzechConnection!
   english(relativePath: String): English!
   englishConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: EnglishFilter): EnglishConnection!
+  images(relativePath: String): Images!
+  imagesConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: ImagesFilter): ImagesConnection!
 }
 
 input DocumentFilter {
   czech: CzechFilter
   english: EnglishFilter
+  images: ImagesFilter
 }
 
 type DocumentConnectionEdges {
@@ -82,7 +85,7 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter): DocumentConnection!
 }
 
-union DocumentNode = Czech | English
+union DocumentNode = Czech | English | Images
 
 type CzechReasons {
   reasonTitle: String
@@ -119,9 +122,13 @@ type Czech implements Node & Document {
   processSteps: [CzechProcessSteps]
   aboutTitle: String
   aboutText: JSON
+  placeLookTitle: String
   reviewsTitle: String
   reviews: [CzechReviews]
+  faqTitle: String
   faq: [CzechFaq]
+  videosTitle: String
+  contactTitle: String
   email: String
   phone: String
   price: String
@@ -178,9 +185,13 @@ input CzechFilter {
   processSteps: CzechProcessStepsFilter
   aboutTitle: StringFilter
   aboutText: RichTextFilter
+  placeLookTitle: StringFilter
   reviewsTitle: StringFilter
   reviews: CzechReviewsFilter
+  faqTitle: StringFilter
   faq: CzechFaqFilter
+  videosTitle: StringFilter
+  contactTitle: StringFilter
   email: StringFilter
   phone: StringFilter
   price: StringFilter
@@ -232,9 +243,13 @@ type English implements Node & Document {
   processSteps: [EnglishProcessSteps]
   aboutTitle: String
   aboutText: JSON
+  placeLookTitle: String
   reviewsTitle: String
   reviews: [EnglishReviews]
+  faqTitle: String
   faq: [EnglishFaq]
+  videosTitle: String
+  contactTitle: String
   email: String
   phone: String
   price: String
@@ -278,9 +293,13 @@ input EnglishFilter {
   processSteps: EnglishProcessStepsFilter
   aboutTitle: StringFilter
   aboutText: RichTextFilter
+  placeLookTitle: StringFilter
   reviewsTitle: StringFilter
   reviews: EnglishReviewsFilter
+  faqTitle: StringFilter
   faq: EnglishFaqFilter
+  videosTitle: StringFilter
+  contactTitle: StringFilter
   email: StringFilter
   phone: StringFilter
   price: StringFilter
@@ -297,6 +316,41 @@ type EnglishConnection implements Connection {
   edges: [EnglishConnectionEdges]
 }
 
+type Images implements Node & Document {
+  firstIntroImage: String
+  secondIntroImage: String
+  thirdIntroImage: String
+  fourthIntroImage: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input ImageFilter {
+  startsWith: String
+  eq: String
+  exists: Boolean
+  in: [String]
+}
+
+input ImagesFilter {
+  firstIntroImage: ImageFilter
+  secondIntroImage: ImageFilter
+  thirdIntroImage: ImageFilter
+  fourthIntroImage: ImageFilter
+}
+
+type ImagesConnectionEdges {
+  cursor: String!
+  node: Images
+}
+
+type ImagesConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [ImagesConnectionEdges]
+}
+
 type Mutation {
   addPendingDocument(collection: String!, relativePath: String!, template: String): DocumentNode!
   updateDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
@@ -306,11 +360,14 @@ type Mutation {
   createCzech(relativePath: String!, params: CzechMutation!): Czech!
   updateEnglish(relativePath: String!, params: EnglishMutation!): English!
   createEnglish(relativePath: String!, params: EnglishMutation!): English!
+  updateImages(relativePath: String!, params: ImagesMutation!): Images!
+  createImages(relativePath: String!, params: ImagesMutation!): Images!
 }
 
 input DocumentMutation {
   czech: CzechMutation
   english: EnglishMutation
+  images: ImagesMutation
 }
 
 input CzechReasonsMutation {
@@ -348,9 +405,13 @@ input CzechMutation {
   processSteps: [CzechProcessStepsMutation]
   aboutTitle: String
   aboutText: JSON
+  placeLookTitle: String
   reviewsTitle: String
   reviews: [CzechReviewsMutation]
+  faqTitle: String
   faq: [CzechFaqMutation]
+  videosTitle: String
+  contactTitle: String
   email: String
   phone: String
   price: String
@@ -391,12 +452,23 @@ input EnglishMutation {
   processSteps: [EnglishProcessStepsMutation]
   aboutTitle: String
   aboutText: JSON
+  placeLookTitle: String
   reviewsTitle: String
   reviews: [EnglishReviewsMutation]
+  faqTitle: String
   faq: [EnglishFaqMutation]
+  videosTitle: String
+  contactTitle: String
   email: String
   phone: String
   price: String
+}
+
+input ImagesMutation {
+  firstIntroImage: String
+  secondIntroImage: String
+  thirdIntroImage: String
+  fourthIntroImage: String
 }
 
 schema {

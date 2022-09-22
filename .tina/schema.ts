@@ -101,6 +101,11 @@ const schema = defineSchema({
           type: "rich-text"
         },
         {
+          label: "Place look title",
+          name: "placeLookTitle",
+          type: "string"
+        },
+        {
           label: "Reviews title",
           name: "reviewsTitle",
           type: "string"
@@ -124,6 +129,11 @@ const schema = defineSchema({
           ]
         },
         {
+          label: "FAQ title",
+          name: "faqTitle",
+          type: "string"
+        },
+        {
           label: "FAQ",
           name: "faq",
           type: "object",
@@ -140,6 +150,16 @@ const schema = defineSchema({
               type: "rich-text"
             },
           ]
+        },
+        {
+          label: "Videos title",
+          name: "videosTitle",
+          type: "string"
+        },
+        {
+          label: "Contact title",
+          name: "contactTitle",
+          type: "string"
         },
         {
           label: "Email",
@@ -249,6 +269,11 @@ const schema = defineSchema({
           type: "rich-text"
         },
         {
+          label: "Place look title",
+          name: "placeLookTitle",
+          type: "string"
+        },
+        {
           label: "Reviews title",
           name: "reviewsTitle",
           type: "string"
@@ -272,6 +297,11 @@ const schema = defineSchema({
           ]
         },
         {
+          label: "FAQ title",
+          name: "faqTitle",
+          type: "string"
+        },
+        {
           label: "FAQ",
           name: "faq",
           type: "object",
@@ -290,6 +320,16 @@ const schema = defineSchema({
           ]
         },
         {
+          label: "Videos title",
+          name: "videosTitle",
+          type: "string"
+        },
+        {
+          label: "Contact title",
+          name: "contactTitle",
+          type: "string"
+        },
+        {
           label: "Email",
           name: "email",
           type: "string"
@@ -305,7 +345,35 @@ const schema = defineSchema({
           type: "string"
         },
       ],
-    }
+    },
+    {
+      label: "Images",
+      name: 'images',
+      path: "content/images",
+      format: "mdx",
+      fields: [
+        {
+          label: "First intro image",
+          name: "firstIntroImage",
+          type: "image"
+        },
+        {
+          label: "Second intro image",
+          name: "secondIntroImage",
+          type: "image"
+        },
+        {
+          label: "Third intro image",
+          name: "thirdIntroImage",
+          type: "image"
+        },
+        {
+          label: "Fourth intro image",
+          name: "fourthIntroImage",
+          type: "image"
+        }
+      ]
+    },
   ],
 });
 
@@ -331,6 +399,12 @@ export const tinaConfig = defineConfig({
 
         if (["english"].includes(collection.name)) {
           if (document._sys.filename === "page") {
+            return "/";
+          }
+        }
+
+        if (["images"].includes(collection.name)) {
+          if (document._sys.filename === "images") {
             return "/";
           }
         }

@@ -31,11 +31,22 @@ const query = `{
     },
     aboutTitle,
     aboutText,
+    placeLookTitle,
     reviewsTitle,
     reviews {
       reviewName,
       reviewText
-    }
+    },
+    faqTitle,
+    faq {
+      faqTitle,
+      faqText
+    },
+    videosTitle,
+    contactTitle,
+    email,
+    phone,
+    price
   },
   english(relativePath: "page.mdx"){
     reasonsTitle,
@@ -60,12 +71,23 @@ const query = `{
     reviews {
       reviewName,
       reviewText
+    },
+    faqTitle,
+    faq {
+      faqTitle,
+      faqText
     }
+    videosTitle,
+    contactTitle,
+    email,
+    phone,
+    price
   }
 }`;
 
 export default function Page(props) {
   const [activeResolutionIndex, setActiveResolutionIndex] = useState(0);
+  const [activeFaqIndex, setActiveFaqIndex] = useState(0);
   const [language, setLanguage] = useState('czech');
   // data passes though in production mode and data is updated to the sidebar data in edit-mode
   const { data } = useTina({
@@ -85,14 +107,22 @@ export default function Page(props) {
     processSteps,
     aboutTitle,
     aboutText,
+    placeLookTitle,
     reviewsTitle,
-    reviews
+    reviews,
+    faqTitle,
+    faq,
+    videosTitle,
+    contactTitle,
+    email,
+    phone,
+    price,
   } = data[language];
 
   return (
     <Layout activeLanguage={language} onLanguageChange={setLanguage}>
       <IntroSection></IntroSection>
-      <Section>
+      <Section id='method'>
         <SectionTitle title={reasonsTitle} />
         <ReasonsWrapper>
           {reasons.map((reason) => <ReasonBubble key={reason.title} {...reason} />)}
@@ -115,7 +145,7 @@ export default function Page(props) {
           </ResolutionTexts>
         </ResolutionsWrapper>
       </Section>
-      <Section>
+      <Section id='process'>
         <SectionTitle title={processTitle} />
         <ProcessWrapper>
           {processSteps.map(({processStepText}, i) => (
@@ -126,13 +156,13 @@ export default function Page(props) {
           ))}
         </ProcessWrapper>
       </Section>
-      <Section>
+      <Section id='about'>
         <SectionTitle title={aboutTitle} />
         <div style={{margin: '0 auto', width: '600px', height: '400px', background: 'yellow', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Video</div>
         <div style={{textAlign: 'center', padding: '0 10px', lineHeight: '30px', margin: '20px 0', background: '#eee', display: 'inline-block'}}>Vice</div>
       </Section>
       <Section>
-        <SectionTitle title='Jak to u mě vypadá' />
+        <SectionTitle title={placeLookTitle} />
         <GalleryWrapper>
           <ImageWrapper>
             <Image src='/look-01.jpg' layout='fill' objectFit='cover' />
@@ -145,41 +175,42 @@ export default function Page(props) {
           </ImageWrapper>
         </GalleryWrapper>
       </Section>
-      <Section>
+      <Section id='reviews'>
         <SectionTitle title={reviewsTitle} />
         <div style={{display: 'flex', justifyContent: 'center'}}>
           <div style={{width: '600px', height: '300px', background: '#eee', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Recenzeeeeeeeeee</div>
         </div>
       </Section>
-      <Section>
-        <SectionTitle title='Nejčastější dotazy' />
+      <Section id='faq'>
+        <SectionTitle title={faqTitle} />
         <div>
-          <div style={{margin: '0 auto', maxWidth: '800px', lineHeight: '60px', padding: '0 30px', border: '1px solid #bbb'}}>sdjflksjdflkjsdflkjsd</div>
-          <div style={{margin: '-1px auto 0', maxWidth: '800px', lineHeight: '60px', padding: '0 30px', border: '1px solid #bbb'}}>sdjflksjdflkjsdflkjsd</div>
-          <div style={{margin: '-1px auto 0', maxWidth: '800px', lineHeight: '60px', padding: '0 30px', border: '1px solid #bbb'}}>sdjflksjdflkjsdflkjsd</div>
-          <div style={{margin: '-1px auto 0', maxWidth: '800px', lineHeight: '60px', padding: '0 30px', border: '1px solid #bbb'}}>sdjflksjdflkjsdflkjsd</div>
-          <div style={{margin: '-1px auto 0', maxWidth: '800px', lineHeight: '60px', padding: '0 30px', border: '1px solid #bbb'}}>sdjflksjdflkjsdflkjsd</div>
+          {faq.map(({faqTitle, faqText}, i) => (
+            <div>
+              <div>{faqTitle}</div>
+              <TinaMarkdown content={faqText} />
+            </div>
+          ))}
         </div>
       </Section>
       <Section>
-        <SectionTitle title='Videa od zakladatele metody' />
+        <SectionTitle title={videosTitle} />
         <GalleryWrapper>
           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/JcZ11fyirGU" frameBorder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/b6MSGcJWn-Y" frameBorder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/I0sYeI6FnoQ" frameBorder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
         </GalleryWrapper>
       </Section>
-      <Section>
+      <Section id='contact'>
         <BackgroundWrapper>
           <Image src='/contact-and-price-bg.jpg' layout='fill' objectFit='cover' />
         </BackgroundWrapper>
         <ContentWrapper>
-          <SectionTitle title='Kontakt a cena' />
+          <SectionTitle title={contactTitle} />
           <div style={{textAlign: 'center'}}>
-            <div>sarka.hulinkova@gmail.com</div>
-            <div>123 456 789</div>
+            <div>{email}</div>
+            <div>{phone}</div>
             <div>Cena za jedno sezení</div>
-            <div>4000 ,-</div>
+            <div>{price}</div>
           </div>
         </ContentWrapper>
       </Section>

@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import Head from 'next/head'
 import styled from 'styled-components'
+import { navigationItemsConfig } from '../content/const'
 
 export const Layout = ({
   activeLanguage,
@@ -28,12 +29,9 @@ export const Layout = ({
           <LogoText>Terapie se Šári</LogoText>
         </LogoWrapper>
         <Links>
-          <NavLink href="/">Metoda RUŠ</NavLink>
-          <NavLink href="/">Průběh terapie</NavLink>
-          <NavLink href="/">O mně</NavLink>
-          <NavLink href="/">Recenze</NavLink>
-          <NavLink href="/">Nejcastejsi dotazy</NavLink>
-          <NavLink href="/">Kontakt a cena</NavLink>
+          {navigationItemsConfig.map((item) => (
+            <NavLink key={item.id} href={item.id}>{item[activeLanguage]}</NavLink>
+          ))}
           <Separator />
           {activeLanguage !== 'czech' && <LanguageButton onClick={() => onLanguageChange('czech')}>CZ</LanguageButton>}
           {activeLanguage !== 'english' && <LanguageButton onClick={() => onLanguageChange('english')}>ENG</LanguageButton>}

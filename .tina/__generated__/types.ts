@@ -77,6 +77,8 @@ export type Query = {
   czechConnection: CzechConnection;
   english: English;
   englishConnection: EnglishConnection;
+  images: Images;
+  imagesConnection: ImagesConnection;
 };
 
 
@@ -130,9 +132,25 @@ export type QueryEnglishConnectionArgs = {
   filter?: InputMaybe<EnglishFilter>;
 };
 
+
+export type QueryImagesArgs = {
+  relativePath?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryImagesConnectionArgs = {
+  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  sort?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<ImagesFilter>;
+};
+
 export type DocumentFilter = {
   czech?: InputMaybe<CzechFilter>;
   english?: InputMaybe<EnglishFilter>;
+  images?: InputMaybe<ImagesFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -171,7 +189,7 @@ export type CollectionDocumentsArgs = {
   filter?: InputMaybe<DocumentFilter>;
 };
 
-export type DocumentNode = Czech | English;
+export type DocumentNode = Czech | English | Images;
 
 export type CzechReasons = {
   __typename?: 'CzechReasons';
@@ -214,9 +232,13 @@ export type Czech = Node & Document & {
   processSteps?: Maybe<Array<Maybe<CzechProcessSteps>>>;
   aboutTitle?: Maybe<Scalars['String']>;
   aboutText?: Maybe<Scalars['JSON']>;
+  placeLookTitle?: Maybe<Scalars['String']>;
   reviewsTitle?: Maybe<Scalars['String']>;
   reviews?: Maybe<Array<Maybe<CzechReviews>>>;
+  faqTitle?: Maybe<Scalars['String']>;
   faq?: Maybe<Array<Maybe<CzechFaq>>>;
+  videosTitle?: Maybe<Scalars['String']>;
+  contactTitle?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['String']>;
@@ -273,9 +295,13 @@ export type CzechFilter = {
   processSteps?: InputMaybe<CzechProcessStepsFilter>;
   aboutTitle?: InputMaybe<StringFilter>;
   aboutText?: InputMaybe<RichTextFilter>;
+  placeLookTitle?: InputMaybe<StringFilter>;
   reviewsTitle?: InputMaybe<StringFilter>;
   reviews?: InputMaybe<CzechReviewsFilter>;
+  faqTitle?: InputMaybe<StringFilter>;
   faq?: InputMaybe<CzechFaqFilter>;
+  videosTitle?: InputMaybe<StringFilter>;
+  contactTitle?: InputMaybe<StringFilter>;
   email?: InputMaybe<StringFilter>;
   phone?: InputMaybe<StringFilter>;
   price?: InputMaybe<StringFilter>;
@@ -335,9 +361,13 @@ export type English = Node & Document & {
   processSteps?: Maybe<Array<Maybe<EnglishProcessSteps>>>;
   aboutTitle?: Maybe<Scalars['String']>;
   aboutText?: Maybe<Scalars['JSON']>;
+  placeLookTitle?: Maybe<Scalars['String']>;
   reviewsTitle?: Maybe<Scalars['String']>;
   reviews?: Maybe<Array<Maybe<EnglishReviews>>>;
+  faqTitle?: Maybe<Scalars['String']>;
   faq?: Maybe<Array<Maybe<EnglishFaq>>>;
+  videosTitle?: Maybe<Scalars['String']>;
+  contactTitle?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
   phone?: Maybe<Scalars['String']>;
   price?: Maybe<Scalars['String']>;
@@ -381,9 +411,13 @@ export type EnglishFilter = {
   processSteps?: InputMaybe<EnglishProcessStepsFilter>;
   aboutTitle?: InputMaybe<StringFilter>;
   aboutText?: InputMaybe<RichTextFilter>;
+  placeLookTitle?: InputMaybe<StringFilter>;
   reviewsTitle?: InputMaybe<StringFilter>;
   reviews?: InputMaybe<EnglishReviewsFilter>;
+  faqTitle?: InputMaybe<StringFilter>;
   faq?: InputMaybe<EnglishFaqFilter>;
+  videosTitle?: InputMaybe<StringFilter>;
+  contactTitle?: InputMaybe<StringFilter>;
   email?: InputMaybe<StringFilter>;
   phone?: InputMaybe<StringFilter>;
   price?: InputMaybe<StringFilter>;
@@ -402,6 +436,44 @@ export type EnglishConnection = Connection & {
   edges?: Maybe<Array<Maybe<EnglishConnectionEdges>>>;
 };
 
+export type Images = Node & Document & {
+  __typename?: 'Images';
+  firstIntroImage?: Maybe<Scalars['String']>;
+  secondIntroImage?: Maybe<Scalars['String']>;
+  thirdIntroImage?: Maybe<Scalars['String']>;
+  fourthIntroImage?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON'];
+};
+
+export type ImageFilter = {
+  startsWith?: InputMaybe<Scalars['String']>;
+  eq?: InputMaybe<Scalars['String']>;
+  exists?: InputMaybe<Scalars['Boolean']>;
+  in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
+};
+
+export type ImagesFilter = {
+  firstIntroImage?: InputMaybe<ImageFilter>;
+  secondIntroImage?: InputMaybe<ImageFilter>;
+  thirdIntroImage?: InputMaybe<ImageFilter>;
+  fourthIntroImage?: InputMaybe<ImageFilter>;
+};
+
+export type ImagesConnectionEdges = {
+  __typename?: 'ImagesConnectionEdges';
+  cursor: Scalars['String'];
+  node?: Maybe<Images>;
+};
+
+export type ImagesConnection = Connection & {
+  __typename?: 'ImagesConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float'];
+  edges?: Maybe<Array<Maybe<ImagesConnectionEdges>>>;
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   addPendingDocument: DocumentNode;
@@ -412,6 +484,8 @@ export type Mutation = {
   createCzech: Czech;
   updateEnglish: English;
   createEnglish: English;
+  updateImages: Images;
+  createImages: Images;
 };
 
 
@@ -465,9 +539,22 @@ export type MutationCreateEnglishArgs = {
   params: EnglishMutation;
 };
 
+
+export type MutationUpdateImagesArgs = {
+  relativePath: Scalars['String'];
+  params: ImagesMutation;
+};
+
+
+export type MutationCreateImagesArgs = {
+  relativePath: Scalars['String'];
+  params: ImagesMutation;
+};
+
 export type DocumentMutation = {
   czech?: InputMaybe<CzechMutation>;
   english?: InputMaybe<EnglishMutation>;
+  images?: InputMaybe<ImagesMutation>;
 };
 
 export type CzechReasonsMutation = {
@@ -505,9 +592,13 @@ export type CzechMutation = {
   processSteps?: InputMaybe<Array<InputMaybe<CzechProcessStepsMutation>>>;
   aboutTitle?: InputMaybe<Scalars['String']>;
   aboutText?: InputMaybe<Scalars['JSON']>;
+  placeLookTitle?: InputMaybe<Scalars['String']>;
   reviewsTitle?: InputMaybe<Scalars['String']>;
   reviews?: InputMaybe<Array<InputMaybe<CzechReviewsMutation>>>;
+  faqTitle?: InputMaybe<Scalars['String']>;
   faq?: InputMaybe<Array<InputMaybe<CzechFaqMutation>>>;
+  videosTitle?: InputMaybe<Scalars['String']>;
+  contactTitle?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['String']>;
@@ -548,24 +639,37 @@ export type EnglishMutation = {
   processSteps?: InputMaybe<Array<InputMaybe<EnglishProcessStepsMutation>>>;
   aboutTitle?: InputMaybe<Scalars['String']>;
   aboutText?: InputMaybe<Scalars['JSON']>;
+  placeLookTitle?: InputMaybe<Scalars['String']>;
   reviewsTitle?: InputMaybe<Scalars['String']>;
   reviews?: InputMaybe<Array<InputMaybe<EnglishReviewsMutation>>>;
+  faqTitle?: InputMaybe<Scalars['String']>;
   faq?: InputMaybe<Array<InputMaybe<EnglishFaqMutation>>>;
+  videosTitle?: InputMaybe<Scalars['String']>;
+  contactTitle?: InputMaybe<Scalars['String']>;
   email?: InputMaybe<Scalars['String']>;
   phone?: InputMaybe<Scalars['String']>;
   price?: InputMaybe<Scalars['String']>;
 };
 
-export type CzechPartsFragment = { __typename?: 'Czech', reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined };
+export type ImagesMutation = {
+  firstIntroImage?: InputMaybe<Scalars['String']>;
+  secondIntroImage?: InputMaybe<Scalars['String']>;
+  thirdIntroImage?: InputMaybe<Scalars['String']>;
+  fourthIntroImage?: InputMaybe<Scalars['String']>;
+};
 
-export type EnglishPartsFragment = { __typename?: 'English', reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined };
+export type CzechPartsFragment = { __typename?: 'Czech', reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined };
+
+export type EnglishPartsFragment = { __typename?: 'English', reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined };
+
+export type ImagesPartsFragment = { __typename?: 'Images', firstIntroImage?: string | null | undefined, secondIntroImage?: string | null | undefined, thirdIntroImage?: string | null | undefined, fourthIntroImage?: string | null | undefined };
 
 export type CzechQueryVariables = Exact<{
   relativePath: Scalars['String'];
 }>;
 
 
-export type CzechQuery = { __typename?: 'Query', czech: { __typename?: 'Czech', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } };
+export type CzechQuery = { __typename?: 'Query', czech: { __typename?: 'Czech', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } };
 
 export type CzechConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']>;
@@ -577,14 +681,14 @@ export type CzechConnectionQueryVariables = Exact<{
 }>;
 
 
-export type CzechConnectionQuery = { __typename?: 'Query', czechConnection: { __typename?: 'CzechConnection', totalCount: number, edges?: Array<{ __typename?: 'CzechConnectionEdges', node?: { __typename?: 'Czech', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
+export type CzechConnectionQuery = { __typename?: 'Query', czechConnection: { __typename?: 'CzechConnection', totalCount: number, edges?: Array<{ __typename?: 'CzechConnectionEdges', node?: { __typename?: 'Czech', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
 
 export type EnglishQueryVariables = Exact<{
   relativePath: Scalars['String'];
 }>;
 
 
-export type EnglishQuery = { __typename?: 'Query', english: { __typename?: 'English', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } };
+export type EnglishQuery = { __typename?: 'Query', english: { __typename?: 'English', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } };
 
 export type EnglishConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']>;
@@ -596,7 +700,26 @@ export type EnglishConnectionQueryVariables = Exact<{
 }>;
 
 
-export type EnglishConnectionQuery = { __typename?: 'Query', englishConnection: { __typename?: 'EnglishConnection', totalCount: number, edges?: Array<{ __typename?: 'EnglishConnectionEdges', node?: { __typename?: 'English', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
+export type EnglishConnectionQuery = { __typename?: 'Query', englishConnection: { __typename?: 'EnglishConnection', totalCount: number, edges?: Array<{ __typename?: 'EnglishConnectionEdges', node?: { __typename?: 'English', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
+
+export type ImagesQueryVariables = Exact<{
+  relativePath: Scalars['String'];
+}>;
+
+
+export type ImagesQuery = { __typename?: 'Query', images: { __typename?: 'Images', id: string, firstIntroImage?: string | null | undefined, secondIntroImage?: string | null | undefined, thirdIntroImage?: string | null | undefined, fourthIntroImage?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+
+export type ImagesConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  sort?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<ImagesFilter>;
+}>;
+
+
+export type ImagesConnectionQuery = { __typename?: 'Query', imagesConnection: { __typename?: 'ImagesConnection', totalCount: number, edges?: Array<{ __typename?: 'ImagesConnectionEdges', node?: { __typename?: 'Images', id: string, firstIntroImage?: string | null | undefined, secondIntroImage?: string | null | undefined, thirdIntroImage?: string | null | undefined, fourthIntroImage?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null | undefined } | null | undefined> | null | undefined } };
 
 export const CzechPartsFragmentDoc = gql`
     fragment CzechParts on Czech {
@@ -621,17 +744,21 @@ export const CzechPartsFragmentDoc = gql`
   }
   aboutTitle
   aboutText
+  placeLookTitle
   reviewsTitle
   reviews {
     __typename
     reviewName
     reviewText
   }
+  faqTitle
   faq {
     __typename
     faqTitle
     faqText
   }
+  videosTitle
+  contactTitle
   email
   phone
   price
@@ -660,20 +787,32 @@ export const EnglishPartsFragmentDoc = gql`
   }
   aboutTitle
   aboutText
+  placeLookTitle
   reviewsTitle
   reviews {
     __typename
     reviewName
     reviewText
   }
+  faqTitle
   faq {
     __typename
     faqTitle
     faqText
   }
+  videosTitle
+  contactTitle
   email
   phone
   price
+}
+    `;
+export const ImagesPartsFragmentDoc = gql`
+    fragment ImagesParts on Images {
+  firstIntroImage
+  secondIntroImage
+  thirdIntroImage
+  fourthIntroImage
 }
     `;
 export const CzechDocument = gql`
@@ -772,6 +911,54 @@ export const EnglishConnectionDocument = gql`
   }
 }
     ${EnglishPartsFragmentDoc}`;
+export const ImagesDocument = gql`
+    query images($relativePath: String!) {
+  images(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...ImagesParts
+  }
+}
+    ${ImagesPartsFragmentDoc}`;
+export const ImagesConnectionDocument = gql`
+    query imagesConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: ImagesFilter) {
+  imagesConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    totalCount
+    edges {
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...ImagesParts
+      }
+    }
+  }
+}
+    ${ImagesPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
@@ -786,6 +973,12 @@ export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) 
       },
     englishConnection(variables?: EnglishConnectionQueryVariables, options?: C): Promise<{data: EnglishConnectionQuery, variables: EnglishConnectionQueryVariables, query: string}> {
         return requester<{data: EnglishConnectionQuery, variables: EnglishConnectionQueryVariables, query: string}, EnglishConnectionQueryVariables>(EnglishConnectionDocument, variables, options);
+      },
+    images(variables: ImagesQueryVariables, options?: C): Promise<{data: ImagesQuery, variables: ImagesQueryVariables, query: string}> {
+        return requester<{data: ImagesQuery, variables: ImagesQueryVariables, query: string}, ImagesQueryVariables>(ImagesDocument, variables, options);
+      },
+    imagesConnection(variables?: ImagesConnectionQueryVariables, options?: C): Promise<{data: ImagesConnectionQuery, variables: ImagesConnectionQueryVariables, query: string}> {
+        return requester<{data: ImagesConnectionQuery, variables: ImagesConnectionQueryVariables, query: string}, ImagesConnectionQueryVariables>(ImagesConnectionDocument, variables, options);
       }
     };
   }

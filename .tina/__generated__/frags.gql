@@ -20,17 +20,21 @@ fragment CzechParts on Czech {
   }
   aboutTitle
   aboutText
+  placeLookTitle
   reviewsTitle
   reviews {
     __typename
     reviewName
     reviewText
   }
+  faqTitle
   faq {
     __typename
     faqTitle
     faqText
   }
+  videosTitle
+  contactTitle
   email
   phone
   price
@@ -58,18 +62,29 @@ fragment EnglishParts on English {
   }
   aboutTitle
   aboutText
+  placeLookTitle
   reviewsTitle
   reviews {
     __typename
     reviewName
     reviewText
   }
+  faqTitle
   faq {
     __typename
     faqTitle
     faqText
   }
+  videosTitle
+  contactTitle
   email
   phone
   price
+}
+
+fragment ImagesParts on Images {
+  firstIntroImage
+  secondIntroImage
+  thirdIntroImage
+  fourthIntroImage
 }
