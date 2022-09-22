@@ -5,14 +5,39 @@ import { useTina } from "tinacms/dist/edit-state";
 import Image from 'next/image';
 import SectionTitle from "../components/SectionTitle";
 import ReasonBubble from "../components/ReasonBubble";
-import { GalleryWrapper, ImageWrapper, IntroSection, MethodContent, MethodWrapper, ProcessPipe, ProcessStep, ProcessWrapper, ReasonsWrapper, ResolutionsWrapper, ResolutionTexts, ResolutionTitles, VideosWrapper } from "../styles/styles";
+import { BackgroundWrapper, ContentWrapper, GalleryWrapper, ImageWrapper, IntroSection, MethodContent, MethodWrapper, ProcessPipe, ProcessStep, ProcessWrapper, ReasonsWrapper, ResolutionsWrapper, ResolutionTexts, ResolutionTitles, VideosWrapper } from "../styles/styles";
 import Section from "../components/Section";
 import { useState } from "react";
 import ResolutionTitle from "../components/ResolutionTitle";
 import ResolutionText from "../components/ResolutionText";
 
 const query = `{
-  page(relativePath: "home.mdx"){
+  czech(relativePath: "page.mdx"){
+    reasonsTitle,
+    reasons {
+      reasonTitle,
+      reasonText,
+    },
+    methodTitle,
+    methodText,
+    resolutionTitle,
+    resolutions {
+      resolutionTitle,
+      resolutionText
+    },
+    processTitle,
+    processSteps {
+      processStepText
+    },
+    aboutTitle,
+    aboutText,
+    reviewsTitle,
+    reviews {
+      reviewName,
+      reviewText
+    }
+  },
+  english(relativePath: "page.mdx"){
     reasonsTitle,
     reasons {
       reasonTitle,
@@ -39,8 +64,9 @@ const query = `{
   }
 }`;
 
-export default function Home(props) {
+export default function Page(props) {
   const [activeResolutionIndex, setActiveResolutionIndex] = useState(0);
+  const [language, setLanguage] = useState('czech');
   // data passes though in production mode and data is updated to the sidebar data in edit-mode
   const { data } = useTina({
     query,
@@ -61,10 +87,10 @@ export default function Home(props) {
     aboutText,
     reviewsTitle,
     reviews
-  } = data.page;
+  } = data[language];
 
   return (
-    <Layout>
+    <Layout activeLanguage={language} onLanguageChange={setLanguage}>
       <IntroSection></IntroSection>
       <Section>
         <SectionTitle title={reasonsTitle} />
@@ -138,19 +164,24 @@ export default function Home(props) {
       <Section>
         <SectionTitle title='Videa od zakladatele metody' />
         <GalleryWrapper>
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/JcZ11fyirGU" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/b6MSGcJWn-Y" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/I0sYeI6FnoQ" frameborder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen />
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/JcZ11fyirGU" frameBorder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/b6MSGcJWn-Y" frameBorder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/I0sYeI6FnoQ" frameBorder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
         </GalleryWrapper>
       </Section>
       <Section>
-        <SectionTitle title='Kontakt a cena' />
-        <div style={{textAlign: 'center'}}>
-          <div>sarka.hulinkova@gmail.com</div>
-          <div>123 456 789</div>
-          <div>Cena za jedno sezení</div>
-          <div>4000 ,-</div>
-        </div>
+        <BackgroundWrapper>
+          <Image src='/contact-and-price-bg.jpg' layout='fill' objectFit='cover' />
+        </BackgroundWrapper>
+        <ContentWrapper>
+          <SectionTitle title='Kontakt a cena' />
+          <div style={{textAlign: 'center'}}>
+            <div>sarka.hulinkova@gmail.com</div>
+            <div>123 456 789</div>
+            <div>Cena za jedno sezení</div>
+            <div>4000 ,-</div>
+          </div>
+        </ContentWrapper>
       </Section>
     </Layout>
   );

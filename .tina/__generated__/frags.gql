@@ -1,4 +1,4 @@
-fragment PageParts on Page {
+fragment CzechParts on Czech {
   reasonsTitle
   reasons {
     __typename
@@ -26,4 +26,50 @@ fragment PageParts on Page {
     reviewName
     reviewText
   }
+  faq {
+    __typename
+    faqTitle
+    faqText
+  }
+  email
+  phone
+  price
+}
+
+fragment EnglishParts on English {
+  reasonsTitle
+  reasons {
+    __typename
+    reasonTitle
+    reasonText
+  }
+  methodTitle
+  methodText
+  resolutionTitle
+  resolutions {
+    __typename
+    resolutionTitle
+    resolutionText
+  }
+  processTitle
+  processSteps {
+    __typename
+    processStepText
+  }
+  aboutTitle
+  aboutText
+  reviewsTitle
+  reviews {
+    __typename
+    reviewName
+    reviewText
+  }
+  faq {
+    __typename
+    faqTitle
+    faqText
+  }
+  email
+  phone
+  price
 }

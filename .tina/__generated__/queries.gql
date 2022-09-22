@@ -1,5 +1,5 @@
-query page($relativePath: String!) {
-  page(relativePath: $relativePath) {
+query czech($relativePath: String!) {
+  czech(relativePath: $relativePath) {
     ... on Document {
       _sys {
         filename
@@ -11,12 +11,12 @@ query page($relativePath: String!) {
       }
       id
     }
-    ...PageParts
+    ...CzechParts
   }
 }
 
-query pageConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFilter) {
-  pageConnection(
+query czechConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: CzechFilter) {
+  czechConnection(
     before: $before
     after: $after
     first: $first
@@ -38,7 +38,53 @@ query pageConnection($before: String, $after: String, $first: Float, $last: Floa
           }
           id
         }
-        ...PageParts
+        ...CzechParts
+      }
+    }
+  }
+}
+
+query english($relativePath: String!) {
+  english(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...EnglishParts
+  }
+}
+
+query englishConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: EnglishFilter) {
+  englishConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    totalCount
+    edges {
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...EnglishParts
       }
     }
   }

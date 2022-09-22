@@ -48,12 +48,15 @@ type Query {
   collections: [Collection!]!
   node(id: String): Node!
   document(collection: String, relativePath: String): DocumentNode!
-  page(relativePath: String): Page!
-  pageConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: PageFilter): PageConnection!
+  czech(relativePath: String): Czech!
+  czechConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: CzechFilter): CzechConnection!
+  english(relativePath: String): English!
+  englishConnection(before: String, after: String, first: Float, last: Float, sort: String, filter: EnglishFilter): EnglishConnection!
 }
 
 input DocumentFilter {
-  page: PageFilter
+  czech: CzechFilter
+  english: EnglishFilter
 }
 
 type DocumentConnectionEdges {
@@ -79,40 +82,49 @@ type Collection {
   documents(before: String, after: String, first: Float, last: Float, sort: String, filter: DocumentFilter): DocumentConnection!
 }
 
-union DocumentNode = Page
+union DocumentNode = Czech | English
 
-type PageReasons {
+type CzechReasons {
   reasonTitle: String
   reasonText: String
 }
 
-type PageResolutions {
+type CzechResolutions {
   resolutionTitle: String
   resolutionText: JSON
 }
 
-type PageProcessSteps {
+type CzechProcessSteps {
   processStepText: String
 }
 
-type PageReviews {
+type CzechReviews {
   reviewName: String
   reviewText: JSON
 }
 
-type Page implements Node & Document {
+type CzechFaq {
+  faqTitle: String
+  faqText: JSON
+}
+
+type Czech implements Node & Document {
   reasonsTitle: String
-  reasons: [PageReasons]
+  reasons: [CzechReasons]
   methodTitle: String
   methodText: JSON
   resolutionTitle: String
-  resolutions: [PageResolutions]
+  resolutions: [CzechResolutions]
   processTitle: String
-  processSteps: [PageProcessSteps]
+  processSteps: [CzechProcessSteps]
   aboutTitle: String
   aboutText: JSON
   reviewsTitle: String
-  reviews: [PageReviews]
+  reviews: [CzechReviews]
+  faq: [CzechFaq]
+  email: String
+  phone: String
+  price: String
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -125,7 +137,7 @@ input StringFilter {
   in: [String]
 }
 
-input PageReasonsFilter {
+input CzechReasonsFilter {
   reasonTitle: StringFilter
   reasonText: StringFilter
 }
@@ -136,44 +148,153 @@ input RichTextFilter {
   exists: Boolean
 }
 
-input PageResolutionsFilter {
+input CzechResolutionsFilter {
   resolutionTitle: StringFilter
   resolutionText: RichTextFilter
 }
 
-input PageProcessStepsFilter {
+input CzechProcessStepsFilter {
   processStepText: StringFilter
 }
 
-input PageReviewsFilter {
+input CzechReviewsFilter {
   reviewName: StringFilter
   reviewText: RichTextFilter
 }
 
-input PageFilter {
+input CzechFaqFilter {
+  faqTitle: StringFilter
+  faqText: RichTextFilter
+}
+
+input CzechFilter {
   reasonsTitle: StringFilter
-  reasons: PageReasonsFilter
+  reasons: CzechReasonsFilter
   methodTitle: StringFilter
   methodText: RichTextFilter
   resolutionTitle: StringFilter
-  resolutions: PageResolutionsFilter
+  resolutions: CzechResolutionsFilter
   processTitle: StringFilter
-  processSteps: PageProcessStepsFilter
+  processSteps: CzechProcessStepsFilter
   aboutTitle: StringFilter
   aboutText: RichTextFilter
   reviewsTitle: StringFilter
-  reviews: PageReviewsFilter
+  reviews: CzechReviewsFilter
+  faq: CzechFaqFilter
+  email: StringFilter
+  phone: StringFilter
+  price: StringFilter
 }
 
-type PageConnectionEdges {
+type CzechConnectionEdges {
   cursor: String!
-  node: Page
+  node: Czech
 }
 
-type PageConnection implements Connection {
+type CzechConnection implements Connection {
   pageInfo: PageInfo!
   totalCount: Float!
-  edges: [PageConnectionEdges]
+  edges: [CzechConnectionEdges]
+}
+
+type EnglishReasons {
+  reasonTitle: String
+  reasonText: String
+}
+
+type EnglishResolutions {
+  resolutionTitle: String
+  resolutionText: JSON
+}
+
+type EnglishProcessSteps {
+  processStepText: String
+}
+
+type EnglishReviews {
+  reviewName: String
+  reviewText: JSON
+}
+
+type EnglishFaq {
+  faqTitle: String
+  faqText: JSON
+}
+
+type English implements Node & Document {
+  reasonsTitle: String
+  reasons: [EnglishReasons]
+  methodTitle: String
+  methodText: JSON
+  resolutionTitle: String
+  resolutions: [EnglishResolutions]
+  processTitle: String
+  processSteps: [EnglishProcessSteps]
+  aboutTitle: String
+  aboutText: JSON
+  reviewsTitle: String
+  reviews: [EnglishReviews]
+  faq: [EnglishFaq]
+  email: String
+  phone: String
+  price: String
+  id: ID!
+  _sys: SystemInfo!
+  _values: JSON!
+}
+
+input EnglishReasonsFilter {
+  reasonTitle: StringFilter
+  reasonText: StringFilter
+}
+
+input EnglishResolutionsFilter {
+  resolutionTitle: StringFilter
+  resolutionText: RichTextFilter
+}
+
+input EnglishProcessStepsFilter {
+  processStepText: StringFilter
+}
+
+input EnglishReviewsFilter {
+  reviewName: StringFilter
+  reviewText: RichTextFilter
+}
+
+input EnglishFaqFilter {
+  faqTitle: StringFilter
+  faqText: RichTextFilter
+}
+
+input EnglishFilter {
+  reasonsTitle: StringFilter
+  reasons: EnglishReasonsFilter
+  methodTitle: StringFilter
+  methodText: RichTextFilter
+  resolutionTitle: StringFilter
+  resolutions: EnglishResolutionsFilter
+  processTitle: StringFilter
+  processSteps: EnglishProcessStepsFilter
+  aboutTitle: StringFilter
+  aboutText: RichTextFilter
+  reviewsTitle: StringFilter
+  reviews: EnglishReviewsFilter
+  faq: EnglishFaqFilter
+  email: StringFilter
+  phone: StringFilter
+  price: StringFilter
+}
+
+type EnglishConnectionEdges {
+  cursor: String!
+  node: English
+}
+
+type EnglishConnection implements Connection {
+  pageInfo: PageInfo!
+  totalCount: Float!
+  edges: [EnglishConnectionEdges]
 }
 
 type Mutation {
@@ -181,46 +302,101 @@ type Mutation {
   updateDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
   deleteDocument(collection: String, relativePath: String!): DocumentNode!
   createDocument(collection: String, relativePath: String!, params: DocumentMutation!): DocumentNode!
-  updatePage(relativePath: String!, params: PageMutation!): Page!
-  createPage(relativePath: String!, params: PageMutation!): Page!
+  updateCzech(relativePath: String!, params: CzechMutation!): Czech!
+  createCzech(relativePath: String!, params: CzechMutation!): Czech!
+  updateEnglish(relativePath: String!, params: EnglishMutation!): English!
+  createEnglish(relativePath: String!, params: EnglishMutation!): English!
 }
 
 input DocumentMutation {
-  page: PageMutation
+  czech: CzechMutation
+  english: EnglishMutation
 }
 
-input PageReasonsMutation {
+input CzechReasonsMutation {
   reasonTitle: String
   reasonText: String
 }
 
-input PageResolutionsMutation {
+input CzechResolutionsMutation {
   resolutionTitle: String
   resolutionText: JSON
 }
 
-input PageProcessStepsMutation {
+input CzechProcessStepsMutation {
   processStepText: String
 }
 
-input PageReviewsMutation {
+input CzechReviewsMutation {
   reviewName: String
   reviewText: JSON
 }
 
-input PageMutation {
+input CzechFaqMutation {
+  faqTitle: String
+  faqText: JSON
+}
+
+input CzechMutation {
   reasonsTitle: String
-  reasons: [PageReasonsMutation]
+  reasons: [CzechReasonsMutation]
   methodTitle: String
   methodText: JSON
   resolutionTitle: String
-  resolutions: [PageResolutionsMutation]
+  resolutions: [CzechResolutionsMutation]
   processTitle: String
-  processSteps: [PageProcessStepsMutation]
+  processSteps: [CzechProcessStepsMutation]
   aboutTitle: String
   aboutText: JSON
   reviewsTitle: String
-  reviews: [PageReviewsMutation]
+  reviews: [CzechReviewsMutation]
+  faq: [CzechFaqMutation]
+  email: String
+  phone: String
+  price: String
+}
+
+input EnglishReasonsMutation {
+  reasonTitle: String
+  reasonText: String
+}
+
+input EnglishResolutionsMutation {
+  resolutionTitle: String
+  resolutionText: JSON
+}
+
+input EnglishProcessStepsMutation {
+  processStepText: String
+}
+
+input EnglishReviewsMutation {
+  reviewName: String
+  reviewText: JSON
+}
+
+input EnglishFaqMutation {
+  faqTitle: String
+  faqText: JSON
+}
+
+input EnglishMutation {
+  reasonsTitle: String
+  reasons: [EnglishReasonsMutation]
+  methodTitle: String
+  methodText: JSON
+  resolutionTitle: String
+  resolutions: [EnglishResolutionsMutation]
+  processTitle: String
+  processSteps: [EnglishProcessStepsMutation]
+  aboutTitle: String
+  aboutText: JSON
+  reviewsTitle: String
+  reviews: [EnglishReviewsMutation]
+  faq: [EnglishFaqMutation]
+  email: String
+  phone: String
+  price: String
 }
 
 schema {

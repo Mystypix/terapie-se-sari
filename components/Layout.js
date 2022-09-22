@@ -2,7 +2,11 @@ import Link from 'next/link'
 import Head from 'next/head'
 import styled from 'styled-components'
 
-export const Layout = (props) => {
+export const Layout = ({
+  activeLanguage,
+  children,
+  onLanguageChange,
+}) => {
   return (
     <div>
       <Head>
@@ -23,16 +27,19 @@ export const Layout = (props) => {
         <LogoWrapper>
           <LogoText>Terapie se Šári</LogoText>
         </LogoWrapper>
-        <nav>
+        <Links>
           <NavLink href="/">Metoda RUŠ</NavLink>
           <NavLink href="/">Průběh terapie</NavLink>
           <NavLink href="/">O mně</NavLink>
           <NavLink href="/">Recenze</NavLink>
           <NavLink href="/">Nejcastejsi dotazy</NavLink>
           <NavLink href="/">Kontakt a cena</NavLink>
-        </nav>
+          <Separator />
+          {activeLanguage !== 'czech' && <LanguageButton onClick={() => onLanguageChange('czech')}>CZ</LanguageButton>}
+          {activeLanguage !== 'english' && <LanguageButton onClick={() => onLanguageChange('english')}>ENG</LanguageButton>}
+        </Links>
       </Header>
-      <main>{props.children}</main>
+      <main>{children}</main>
     </div>
   )
 }
@@ -77,4 +84,23 @@ const Header = styled.header`
   height: 60px;
   background: rgba(255,255,255,.8);
   box-shadow: 0 1px 10px rgba(0,0,0,.3);
+`
+
+const Links = styled.nav`
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+`
+
+const Separator = styled.div`
+  margin: 0 15px 0 5px;
+  height: 30px;
+  width: 1px;
+  background: #333;
+`
+
+const LanguageButton = styled.button`
+  border: 0;
+  background: none;
+  cursor: pointer;
 `

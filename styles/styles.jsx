@@ -99,3 +99,16 @@ export const GalleryWrapper = styled.div`
 export const ImageWrapper = styled.div`
     position: relative;
 `
+
+export const BackgroundWrapper = styled.div`
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+`
+
+export const ContentWrapper = styled.div`
+    position: relative;
+    z-index: 1;
+`

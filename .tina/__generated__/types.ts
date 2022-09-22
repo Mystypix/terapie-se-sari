@@ -73,8 +73,10 @@ export type Query = {
   collections: Array<Collection>;
   node: Node;
   document: DocumentNode;
-  page: Page;
-  pageConnection: PageConnection;
+  czech: Czech;
+  czechConnection: CzechConnection;
+  english: English;
+  englishConnection: EnglishConnection;
 };
 
 
@@ -99,22 +101,38 @@ export type QueryDocumentArgs = {
 };
 
 
-export type QueryPageArgs = {
+export type QueryCzechArgs = {
   relativePath?: InputMaybe<Scalars['String']>;
 };
 
 
-export type QueryPageConnectionArgs = {
+export type QueryCzechConnectionArgs = {
   before?: InputMaybe<Scalars['String']>;
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   sort?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<PageFilter>;
+  filter?: InputMaybe<CzechFilter>;
+};
+
+
+export type QueryEnglishArgs = {
+  relativePath?: InputMaybe<Scalars['String']>;
+};
+
+
+export type QueryEnglishConnectionArgs = {
+  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  sort?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<EnglishFilter>;
 };
 
 export type DocumentFilter = {
-  page?: InputMaybe<PageFilter>;
+  czech?: InputMaybe<CzechFilter>;
+  english?: InputMaybe<EnglishFilter>;
 };
 
 export type DocumentConnectionEdges = {
@@ -153,45 +171,55 @@ export type CollectionDocumentsArgs = {
   filter?: InputMaybe<DocumentFilter>;
 };
 
-export type DocumentNode = Page;
+export type DocumentNode = Czech | English;
 
-export type PageReasons = {
-  __typename?: 'PageReasons';
+export type CzechReasons = {
+  __typename?: 'CzechReasons';
   reasonTitle?: Maybe<Scalars['String']>;
   reasonText?: Maybe<Scalars['String']>;
 };
 
-export type PageResolutions = {
-  __typename?: 'PageResolutions';
+export type CzechResolutions = {
+  __typename?: 'CzechResolutions';
   resolutionTitle?: Maybe<Scalars['String']>;
   resolutionText?: Maybe<Scalars['JSON']>;
 };
 
-export type PageProcessSteps = {
-  __typename?: 'PageProcessSteps';
+export type CzechProcessSteps = {
+  __typename?: 'CzechProcessSteps';
   processStepText?: Maybe<Scalars['String']>;
 };
 
-export type PageReviews = {
-  __typename?: 'PageReviews';
+export type CzechReviews = {
+  __typename?: 'CzechReviews';
   reviewName?: Maybe<Scalars['String']>;
   reviewText?: Maybe<Scalars['JSON']>;
 };
 
-export type Page = Node & Document & {
-  __typename?: 'Page';
+export type CzechFaq = {
+  __typename?: 'CzechFaq';
+  faqTitle?: Maybe<Scalars['String']>;
+  faqText?: Maybe<Scalars['JSON']>;
+};
+
+export type Czech = Node & Document & {
+  __typename?: 'Czech';
   reasonsTitle?: Maybe<Scalars['String']>;
-  reasons?: Maybe<Array<Maybe<PageReasons>>>;
+  reasons?: Maybe<Array<Maybe<CzechReasons>>>;
   methodTitle?: Maybe<Scalars['String']>;
   methodText?: Maybe<Scalars['JSON']>;
   resolutionTitle?: Maybe<Scalars['String']>;
-  resolutions?: Maybe<Array<Maybe<PageResolutions>>>;
+  resolutions?: Maybe<Array<Maybe<CzechResolutions>>>;
   processTitle?: Maybe<Scalars['String']>;
-  processSteps?: Maybe<Array<Maybe<PageProcessSteps>>>;
+  processSteps?: Maybe<Array<Maybe<CzechProcessSteps>>>;
   aboutTitle?: Maybe<Scalars['String']>;
   aboutText?: Maybe<Scalars['JSON']>;
   reviewsTitle?: Maybe<Scalars['String']>;
-  reviews?: Maybe<Array<Maybe<PageReviews>>>;
+  reviews?: Maybe<Array<Maybe<CzechReviews>>>;
+  faq?: Maybe<Array<Maybe<CzechFaq>>>;
+  email?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['String']>;
   id: Scalars['ID'];
   _sys: SystemInfo;
   _values: Scalars['JSON'];
@@ -204,7 +232,7 @@ export type StringFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
-export type PageReasonsFilter = {
+export type CzechReasonsFilter = {
   reasonTitle?: InputMaybe<StringFilter>;
   reasonText?: InputMaybe<StringFilter>;
 };
@@ -215,46 +243,163 @@ export type RichTextFilter = {
   exists?: InputMaybe<Scalars['Boolean']>;
 };
 
-export type PageResolutionsFilter = {
+export type CzechResolutionsFilter = {
   resolutionTitle?: InputMaybe<StringFilter>;
   resolutionText?: InputMaybe<RichTextFilter>;
 };
 
-export type PageProcessStepsFilter = {
+export type CzechProcessStepsFilter = {
   processStepText?: InputMaybe<StringFilter>;
 };
 
-export type PageReviewsFilter = {
+export type CzechReviewsFilter = {
   reviewName?: InputMaybe<StringFilter>;
   reviewText?: InputMaybe<RichTextFilter>;
 };
 
-export type PageFilter = {
+export type CzechFaqFilter = {
+  faqTitle?: InputMaybe<StringFilter>;
+  faqText?: InputMaybe<RichTextFilter>;
+};
+
+export type CzechFilter = {
   reasonsTitle?: InputMaybe<StringFilter>;
-  reasons?: InputMaybe<PageReasonsFilter>;
+  reasons?: InputMaybe<CzechReasonsFilter>;
   methodTitle?: InputMaybe<StringFilter>;
   methodText?: InputMaybe<RichTextFilter>;
   resolutionTitle?: InputMaybe<StringFilter>;
-  resolutions?: InputMaybe<PageResolutionsFilter>;
+  resolutions?: InputMaybe<CzechResolutionsFilter>;
   processTitle?: InputMaybe<StringFilter>;
-  processSteps?: InputMaybe<PageProcessStepsFilter>;
+  processSteps?: InputMaybe<CzechProcessStepsFilter>;
   aboutTitle?: InputMaybe<StringFilter>;
   aboutText?: InputMaybe<RichTextFilter>;
   reviewsTitle?: InputMaybe<StringFilter>;
-  reviews?: InputMaybe<PageReviewsFilter>;
+  reviews?: InputMaybe<CzechReviewsFilter>;
+  faq?: InputMaybe<CzechFaqFilter>;
+  email?: InputMaybe<StringFilter>;
+  phone?: InputMaybe<StringFilter>;
+  price?: InputMaybe<StringFilter>;
 };
 
-export type PageConnectionEdges = {
-  __typename?: 'PageConnectionEdges';
+export type CzechConnectionEdges = {
+  __typename?: 'CzechConnectionEdges';
   cursor: Scalars['String'];
-  node?: Maybe<Page>;
+  node?: Maybe<Czech>;
 };
 
-export type PageConnection = Connection & {
-  __typename?: 'PageConnection';
+export type CzechConnection = Connection & {
+  __typename?: 'CzechConnection';
   pageInfo: PageInfo;
   totalCount: Scalars['Float'];
-  edges?: Maybe<Array<Maybe<PageConnectionEdges>>>;
+  edges?: Maybe<Array<Maybe<CzechConnectionEdges>>>;
+};
+
+export type EnglishReasons = {
+  __typename?: 'EnglishReasons';
+  reasonTitle?: Maybe<Scalars['String']>;
+  reasonText?: Maybe<Scalars['String']>;
+};
+
+export type EnglishResolutions = {
+  __typename?: 'EnglishResolutions';
+  resolutionTitle?: Maybe<Scalars['String']>;
+  resolutionText?: Maybe<Scalars['JSON']>;
+};
+
+export type EnglishProcessSteps = {
+  __typename?: 'EnglishProcessSteps';
+  processStepText?: Maybe<Scalars['String']>;
+};
+
+export type EnglishReviews = {
+  __typename?: 'EnglishReviews';
+  reviewName?: Maybe<Scalars['String']>;
+  reviewText?: Maybe<Scalars['JSON']>;
+};
+
+export type EnglishFaq = {
+  __typename?: 'EnglishFaq';
+  faqTitle?: Maybe<Scalars['String']>;
+  faqText?: Maybe<Scalars['JSON']>;
+};
+
+export type English = Node & Document & {
+  __typename?: 'English';
+  reasonsTitle?: Maybe<Scalars['String']>;
+  reasons?: Maybe<Array<Maybe<EnglishReasons>>>;
+  methodTitle?: Maybe<Scalars['String']>;
+  methodText?: Maybe<Scalars['JSON']>;
+  resolutionTitle?: Maybe<Scalars['String']>;
+  resolutions?: Maybe<Array<Maybe<EnglishResolutions>>>;
+  processTitle?: Maybe<Scalars['String']>;
+  processSteps?: Maybe<Array<Maybe<EnglishProcessSteps>>>;
+  aboutTitle?: Maybe<Scalars['String']>;
+  aboutText?: Maybe<Scalars['JSON']>;
+  reviewsTitle?: Maybe<Scalars['String']>;
+  reviews?: Maybe<Array<Maybe<EnglishReviews>>>;
+  faq?: Maybe<Array<Maybe<EnglishFaq>>>;
+  email?: Maybe<Scalars['String']>;
+  phone?: Maybe<Scalars['String']>;
+  price?: Maybe<Scalars['String']>;
+  id: Scalars['ID'];
+  _sys: SystemInfo;
+  _values: Scalars['JSON'];
+};
+
+export type EnglishReasonsFilter = {
+  reasonTitle?: InputMaybe<StringFilter>;
+  reasonText?: InputMaybe<StringFilter>;
+};
+
+export type EnglishResolutionsFilter = {
+  resolutionTitle?: InputMaybe<StringFilter>;
+  resolutionText?: InputMaybe<RichTextFilter>;
+};
+
+export type EnglishProcessStepsFilter = {
+  processStepText?: InputMaybe<StringFilter>;
+};
+
+export type EnglishReviewsFilter = {
+  reviewName?: InputMaybe<StringFilter>;
+  reviewText?: InputMaybe<RichTextFilter>;
+};
+
+export type EnglishFaqFilter = {
+  faqTitle?: InputMaybe<StringFilter>;
+  faqText?: InputMaybe<RichTextFilter>;
+};
+
+export type EnglishFilter = {
+  reasonsTitle?: InputMaybe<StringFilter>;
+  reasons?: InputMaybe<EnglishReasonsFilter>;
+  methodTitle?: InputMaybe<StringFilter>;
+  methodText?: InputMaybe<RichTextFilter>;
+  resolutionTitle?: InputMaybe<StringFilter>;
+  resolutions?: InputMaybe<EnglishResolutionsFilter>;
+  processTitle?: InputMaybe<StringFilter>;
+  processSteps?: InputMaybe<EnglishProcessStepsFilter>;
+  aboutTitle?: InputMaybe<StringFilter>;
+  aboutText?: InputMaybe<RichTextFilter>;
+  reviewsTitle?: InputMaybe<StringFilter>;
+  reviews?: InputMaybe<EnglishReviewsFilter>;
+  faq?: InputMaybe<EnglishFaqFilter>;
+  email?: InputMaybe<StringFilter>;
+  phone?: InputMaybe<StringFilter>;
+  price?: InputMaybe<StringFilter>;
+};
+
+export type EnglishConnectionEdges = {
+  __typename?: 'EnglishConnectionEdges';
+  cursor: Scalars['String'];
+  node?: Maybe<English>;
+};
+
+export type EnglishConnection = Connection & {
+  __typename?: 'EnglishConnection';
+  pageInfo: PageInfo;
+  totalCount: Scalars['Float'];
+  edges?: Maybe<Array<Maybe<EnglishConnectionEdges>>>;
 };
 
 export type Mutation = {
@@ -263,8 +408,10 @@ export type Mutation = {
   updateDocument: DocumentNode;
   deleteDocument: DocumentNode;
   createDocument: DocumentNode;
-  updatePage: Page;
-  createPage: Page;
+  updateCzech: Czech;
+  createCzech: Czech;
+  updateEnglish: English;
+  createEnglish: English;
 };
 
 
@@ -295,78 +442,164 @@ export type MutationCreateDocumentArgs = {
 };
 
 
-export type MutationUpdatePageArgs = {
+export type MutationUpdateCzechArgs = {
   relativePath: Scalars['String'];
-  params: PageMutation;
+  params: CzechMutation;
 };
 
 
-export type MutationCreatePageArgs = {
+export type MutationCreateCzechArgs = {
   relativePath: Scalars['String'];
-  params: PageMutation;
+  params: CzechMutation;
+};
+
+
+export type MutationUpdateEnglishArgs = {
+  relativePath: Scalars['String'];
+  params: EnglishMutation;
+};
+
+
+export type MutationCreateEnglishArgs = {
+  relativePath: Scalars['String'];
+  params: EnglishMutation;
 };
 
 export type DocumentMutation = {
-  page?: InputMaybe<PageMutation>;
+  czech?: InputMaybe<CzechMutation>;
+  english?: InputMaybe<EnglishMutation>;
 };
 
-export type PageReasonsMutation = {
+export type CzechReasonsMutation = {
   reasonTitle?: InputMaybe<Scalars['String']>;
   reasonText?: InputMaybe<Scalars['String']>;
 };
 
-export type PageResolutionsMutation = {
+export type CzechResolutionsMutation = {
   resolutionTitle?: InputMaybe<Scalars['String']>;
   resolutionText?: InputMaybe<Scalars['JSON']>;
 };
 
-export type PageProcessStepsMutation = {
+export type CzechProcessStepsMutation = {
   processStepText?: InputMaybe<Scalars['String']>;
 };
 
-export type PageReviewsMutation = {
+export type CzechReviewsMutation = {
   reviewName?: InputMaybe<Scalars['String']>;
   reviewText?: InputMaybe<Scalars['JSON']>;
 };
 
-export type PageMutation = {
+export type CzechFaqMutation = {
+  faqTitle?: InputMaybe<Scalars['String']>;
+  faqText?: InputMaybe<Scalars['JSON']>;
+};
+
+export type CzechMutation = {
   reasonsTitle?: InputMaybe<Scalars['String']>;
-  reasons?: InputMaybe<Array<InputMaybe<PageReasonsMutation>>>;
+  reasons?: InputMaybe<Array<InputMaybe<CzechReasonsMutation>>>;
   methodTitle?: InputMaybe<Scalars['String']>;
   methodText?: InputMaybe<Scalars['JSON']>;
   resolutionTitle?: InputMaybe<Scalars['String']>;
-  resolutions?: InputMaybe<Array<InputMaybe<PageResolutionsMutation>>>;
+  resolutions?: InputMaybe<Array<InputMaybe<CzechResolutionsMutation>>>;
   processTitle?: InputMaybe<Scalars['String']>;
-  processSteps?: InputMaybe<Array<InputMaybe<PageProcessStepsMutation>>>;
+  processSteps?: InputMaybe<Array<InputMaybe<CzechProcessStepsMutation>>>;
   aboutTitle?: InputMaybe<Scalars['String']>;
   aboutText?: InputMaybe<Scalars['JSON']>;
   reviewsTitle?: InputMaybe<Scalars['String']>;
-  reviews?: InputMaybe<Array<InputMaybe<PageReviewsMutation>>>;
+  reviews?: InputMaybe<Array<InputMaybe<CzechReviewsMutation>>>;
+  faq?: InputMaybe<Array<InputMaybe<CzechFaqMutation>>>;
+  email?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['String']>;
 };
 
-export type PagePartsFragment = { __typename?: 'Page', reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, reasons?: Array<{ __typename: 'PageReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'PageResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'PageProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'PageReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined };
+export type EnglishReasonsMutation = {
+  reasonTitle?: InputMaybe<Scalars['String']>;
+  reasonText?: InputMaybe<Scalars['String']>;
+};
 
-export type PageQueryVariables = Exact<{
+export type EnglishResolutionsMutation = {
+  resolutionTitle?: InputMaybe<Scalars['String']>;
+  resolutionText?: InputMaybe<Scalars['JSON']>;
+};
+
+export type EnglishProcessStepsMutation = {
+  processStepText?: InputMaybe<Scalars['String']>;
+};
+
+export type EnglishReviewsMutation = {
+  reviewName?: InputMaybe<Scalars['String']>;
+  reviewText?: InputMaybe<Scalars['JSON']>;
+};
+
+export type EnglishFaqMutation = {
+  faqTitle?: InputMaybe<Scalars['String']>;
+  faqText?: InputMaybe<Scalars['JSON']>;
+};
+
+export type EnglishMutation = {
+  reasonsTitle?: InputMaybe<Scalars['String']>;
+  reasons?: InputMaybe<Array<InputMaybe<EnglishReasonsMutation>>>;
+  methodTitle?: InputMaybe<Scalars['String']>;
+  methodText?: InputMaybe<Scalars['JSON']>;
+  resolutionTitle?: InputMaybe<Scalars['String']>;
+  resolutions?: InputMaybe<Array<InputMaybe<EnglishResolutionsMutation>>>;
+  processTitle?: InputMaybe<Scalars['String']>;
+  processSteps?: InputMaybe<Array<InputMaybe<EnglishProcessStepsMutation>>>;
+  aboutTitle?: InputMaybe<Scalars['String']>;
+  aboutText?: InputMaybe<Scalars['JSON']>;
+  reviewsTitle?: InputMaybe<Scalars['String']>;
+  reviews?: InputMaybe<Array<InputMaybe<EnglishReviewsMutation>>>;
+  faq?: InputMaybe<Array<InputMaybe<EnglishFaqMutation>>>;
+  email?: InputMaybe<Scalars['String']>;
+  phone?: InputMaybe<Scalars['String']>;
+  price?: InputMaybe<Scalars['String']>;
+};
+
+export type CzechPartsFragment = { __typename?: 'Czech', reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined };
+
+export type EnglishPartsFragment = { __typename?: 'English', reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined };
+
+export type CzechQueryVariables = Exact<{
   relativePath: Scalars['String'];
 }>;
 
 
-export type PageQuery = { __typename?: 'Query', page: { __typename?: 'Page', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'PageReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'PageResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'PageProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'PageReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined } };
+export type CzechQuery = { __typename?: 'Query', czech: { __typename?: 'Czech', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } };
 
-export type PageConnectionQueryVariables = Exact<{
+export type CzechConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']>;
   after?: InputMaybe<Scalars['String']>;
   first?: InputMaybe<Scalars['Float']>;
   last?: InputMaybe<Scalars['Float']>;
   sort?: InputMaybe<Scalars['String']>;
-  filter?: InputMaybe<PageFilter>;
+  filter?: InputMaybe<CzechFilter>;
 }>;
 
 
-export type PageConnectionQuery = { __typename?: 'Query', pageConnection: { __typename?: 'PageConnection', totalCount: number, edges?: Array<{ __typename?: 'PageConnectionEdges', node?: { __typename?: 'Page', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'PageReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'PageResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'PageProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'PageReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
+export type CzechConnectionQuery = { __typename?: 'Query', czechConnection: { __typename?: 'CzechConnection', totalCount: number, edges?: Array<{ __typename?: 'CzechConnectionEdges', node?: { __typename?: 'Czech', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
 
-export const PagePartsFragmentDoc = gql`
-    fragment PageParts on Page {
+export type EnglishQueryVariables = Exact<{
+  relativePath: Scalars['String'];
+}>;
+
+
+export type EnglishQuery = { __typename?: 'Query', english: { __typename?: 'English', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } };
+
+export type EnglishConnectionQueryVariables = Exact<{
+  before?: InputMaybe<Scalars['String']>;
+  after?: InputMaybe<Scalars['String']>;
+  first?: InputMaybe<Scalars['Float']>;
+  last?: InputMaybe<Scalars['Float']>;
+  sort?: InputMaybe<Scalars['String']>;
+  filter?: InputMaybe<EnglishFilter>;
+}>;
+
+
+export type EnglishConnectionQuery = { __typename?: 'Query', englishConnection: { __typename?: 'EnglishConnection', totalCount: number, edges?: Array<{ __typename?: 'EnglishConnectionEdges', node?: { __typename?: 'English', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, reviewsTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
+
+export const CzechPartsFragmentDoc = gql`
+    fragment CzechParts on Czech {
   reasonsTitle
   reasons {
     __typename
@@ -394,11 +627,58 @@ export const PagePartsFragmentDoc = gql`
     reviewName
     reviewText
   }
+  faq {
+    __typename
+    faqTitle
+    faqText
+  }
+  email
+  phone
+  price
 }
     `;
-export const PageDocument = gql`
-    query page($relativePath: String!) {
-  page(relativePath: $relativePath) {
+export const EnglishPartsFragmentDoc = gql`
+    fragment EnglishParts on English {
+  reasonsTitle
+  reasons {
+    __typename
+    reasonTitle
+    reasonText
+  }
+  methodTitle
+  methodText
+  resolutionTitle
+  resolutions {
+    __typename
+    resolutionTitle
+    resolutionText
+  }
+  processTitle
+  processSteps {
+    __typename
+    processStepText
+  }
+  aboutTitle
+  aboutText
+  reviewsTitle
+  reviews {
+    __typename
+    reviewName
+    reviewText
+  }
+  faq {
+    __typename
+    faqTitle
+    faqText
+  }
+  email
+  phone
+  price
+}
+    `;
+export const CzechDocument = gql`
+    query czech($relativePath: String!) {
+  czech(relativePath: $relativePath) {
     ... on Document {
       _sys {
         filename
@@ -410,13 +690,13 @@ export const PageDocument = gql`
       }
       id
     }
-    ...PageParts
+    ...CzechParts
   }
 }
-    ${PagePartsFragmentDoc}`;
-export const PageConnectionDocument = gql`
-    query pageConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: PageFilter) {
-  pageConnection(
+    ${CzechPartsFragmentDoc}`;
+export const CzechConnectionDocument = gql`
+    query czechConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: CzechFilter) {
+  czechConnection(
     before: $before
     after: $after
     first: $first
@@ -438,20 +718,74 @@ export const PageConnectionDocument = gql`
           }
           id
         }
-        ...PageParts
+        ...CzechParts
       }
     }
   }
 }
-    ${PagePartsFragmentDoc}`;
+    ${CzechPartsFragmentDoc}`;
+export const EnglishDocument = gql`
+    query english($relativePath: String!) {
+  english(relativePath: $relativePath) {
+    ... on Document {
+      _sys {
+        filename
+        basename
+        breadcrumbs
+        path
+        relativePath
+        extension
+      }
+      id
+    }
+    ...EnglishParts
+  }
+}
+    ${EnglishPartsFragmentDoc}`;
+export const EnglishConnectionDocument = gql`
+    query englishConnection($before: String, $after: String, $first: Float, $last: Float, $sort: String, $filter: EnglishFilter) {
+  englishConnection(
+    before: $before
+    after: $after
+    first: $first
+    last: $last
+    sort: $sort
+    filter: $filter
+  ) {
+    totalCount
+    edges {
+      node {
+        ... on Document {
+          _sys {
+            filename
+            basename
+            breadcrumbs
+            path
+            relativePath
+            extension
+          }
+          id
+        }
+        ...EnglishParts
+      }
+    }
+  }
+}
+    ${EnglishPartsFragmentDoc}`;
 export type Requester<C= {}> = <R, V>(doc: DocumentNode, vars?: V, options?: C) => Promise<R>
   export function getSdk<C>(requester: Requester<C>) {
     return {
-      page(variables: PageQueryVariables, options?: C): Promise<{data: PageQuery, variables: PageQueryVariables, query: string}> {
-        return requester<{data: PageQuery, variables: PageQueryVariables, query: string}, PageQueryVariables>(PageDocument, variables, options);
+      czech(variables: CzechQueryVariables, options?: C): Promise<{data: CzechQuery, variables: CzechQueryVariables, query: string}> {
+        return requester<{data: CzechQuery, variables: CzechQueryVariables, query: string}, CzechQueryVariables>(CzechDocument, variables, options);
       },
-    pageConnection(variables?: PageConnectionQueryVariables, options?: C): Promise<{data: PageConnectionQuery, variables: PageConnectionQueryVariables, query: string}> {
-        return requester<{data: PageConnectionQuery, variables: PageConnectionQueryVariables, query: string}, PageConnectionQueryVariables>(PageConnectionDocument, variables, options);
+    czechConnection(variables?: CzechConnectionQueryVariables, options?: C): Promise<{data: CzechConnectionQuery, variables: CzechConnectionQueryVariables, query: string}> {
+        return requester<{data: CzechConnectionQuery, variables: CzechConnectionQueryVariables, query: string}, CzechConnectionQueryVariables>(CzechConnectionDocument, variables, options);
+      },
+    english(variables: EnglishQueryVariables, options?: C): Promise<{data: EnglishQuery, variables: EnglishQueryVariables, query: string}> {
+        return requester<{data: EnglishQuery, variables: EnglishQueryVariables, query: string}, EnglishQueryVariables>(EnglishDocument, variables, options);
+      },
+    englishConnection(variables?: EnglishConnectionQueryVariables, options?: C): Promise<{data: EnglishConnectionQuery, variables: EnglishConnectionQueryVariables, query: string}> {
+        return requester<{data: EnglishConnectionQuery, variables: EnglishConnectionQueryVariables, query: string}, EnglishConnectionQueryVariables>(EnglishConnectionDocument, variables, options);
       }
     };
   }

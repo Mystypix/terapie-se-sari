@@ -11,5 +11,6 @@ const Section = ({
 export default Section
 
 const Wrapper = styled.section`
+    position: relative;
     padding: 60px 0;
 `
