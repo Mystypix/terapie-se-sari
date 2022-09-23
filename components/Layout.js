@@ -73,14 +73,14 @@ const Header = styled.header`
   position: fixed;
   top: 0;
   left: 0;
-  z-index: 1;
+  z-index: 2;
   display: flex;
   align-items: center;
   justify-content: space-between;
   padding: 0 10px;
   width: 100%;
   height: 60px;
-  background: rgba(255,255,255,.8);
+  background: #fff;
   box-shadow: 0 1px 10px rgba(0,0,0,.3);
 `
 

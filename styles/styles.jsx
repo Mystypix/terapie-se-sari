@@ -67,7 +67,7 @@ export const ProcessStep = styled.div`
 export const ProcessPipe = styled.div`
     position: relative;
     margin: 10px 0;
-    border: 1px dashed #aaa;
+    border: 1px dashed #666;
     width: 0;
     height: 50px;
 `

@@ -161,7 +161,7 @@ export default function Page(props) {
           <iframe width="100%" height="100%" src="https://www.youtube.com/embed/I0sYeI6FnoQ" frameBorder="0" allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen />
         </GalleryWrapper>
       </Section>
-      <Section id='contact'>
+      <Section id='contact' padding='200px 0'>
         <BackgroundWrapper>
           <Image src='/contact-and-price-bg.jpg' layout='fill' objectFit='cover' />
         </BackgroundWrapper>
