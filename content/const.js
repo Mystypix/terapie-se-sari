@@ -1,3 +1,82 @@
+export const query = `{
+    images(relativePath: "page.mdx"){
+      introImages {
+        introImage
+      }
+    },
+    czech(relativePath: "page.mdx"){
+      reasonsTitle,
+      reasons {
+        reasonTitle,
+        reasonText,
+      },
+      methodTitle,
+      methodText,
+      resolutionTitle,
+      resolutions {
+        resolutionTitle,
+        resolutionText
+      },
+      processTitle,
+      processSteps {
+        processStepText
+      },
+      aboutTitle,
+      aboutText,
+      placeLookTitle,
+      reviewsTitle,
+      reviews {
+        reviewName,
+        reviewText
+      },
+      faqTitle,
+      faq {
+        faqTitle,
+        faqText
+      },
+      videosTitle,
+      contactTitle,
+      email,
+      phone,
+      price
+    },
+    english(relativePath: "page.mdx"){
+      reasonsTitle,
+      reasons {
+        reasonTitle,
+        reasonText,
+      },
+      methodTitle,
+      methodText,
+      resolutionTitle,
+      resolutions {
+        resolutionTitle,
+        resolutionText
+      },
+      processTitle,
+      processSteps {
+        processStepText
+      },
+      aboutTitle,
+      aboutText,
+      reviewsTitle,
+      reviews {
+        reviewName,
+        reviewText
+      },
+      faqTitle,
+      faq {
+        faqTitle,
+        faqText
+      }
+      videosTitle,
+      contactTitle,
+      email,
+      phone,
+      price
+    }
+}`;
+
 export const navigationItemsConfig = [
     {
         czech: 'Metoda RUŠ',

@@ -83,8 +83,8 @@ fragment EnglishParts on English {
 }
 
 fragment ImagesParts on Images {
-  firstIntroImage
-  secondIntroImage
-  thirdIntroImage
-  fourthIntroImage
+  introImages {
+    __typename
+    introImage
+  }
 }

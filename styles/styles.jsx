@@ -1,20 +1,20 @@
 import styled from 'styled-components';
 
+export const IntroBackgroundWrapper = styled.div`
+    animation: introBgChange ${(props) => props.count * 4}s linear ${(props) => props.index * 4}s infinite;
+
+    @keyframes introBgChange {
+        0% { opacity: 1 },
+        75% { opacity: 1 },
+        100% { opacity: 0 },
+    }
+`
+
 export const IntroSection = styled.section`
     display: flex;
     align-items: center;
     justify-content: center;
     height: 100vh;
-    // animation: introBgChange 8s linear infinite;
-    background: url('/1.jpg'); 
-    background-size: cover;
-
-    @keyframes introBgChange {
-        0% { },
-        25% { background: url('/2.jpg'); background-size: cover; },
-        50% { background: url('/3.jpg'); background-size: cover; },
-        100% { background: url('/4.jpg'); background-size: cover; },
-    }
 `
 
 export const IntroText = styled.div`

@@ -316,11 +316,12 @@ type EnglishConnection implements Connection {
   edges: [EnglishConnectionEdges]
 }
 
+type ImagesIntroImages {
+  introImage: String
+}
+
 type Images implements Node & Document {
-  firstIntroImage: String
-  secondIntroImage: String
-  thirdIntroImage: String
-  fourthIntroImage: String
+  introImages: [ImagesIntroImages]
   id: ID!
   _sys: SystemInfo!
   _values: JSON!
@@ -333,11 +334,12 @@ input ImageFilter {
   in: [String]
 }
 
+input ImagesIntroImagesFilter {
+  introImage: ImageFilter
+}
+
 input ImagesFilter {
-  firstIntroImage: ImageFilter
-  secondIntroImage: ImageFilter
-  thirdIntroImage: ImageFilter
-  fourthIntroImage: ImageFilter
+  introImages: ImagesIntroImagesFilter
 }
 
 type ImagesConnectionEdges {
@@ -464,11 +466,12 @@ input EnglishMutation {
   price: String
 }
 
+input ImagesIntroImagesMutation {
+  introImage: String
+}
+
 input ImagesMutation {
-  firstIntroImage: String
-  secondIntroImage: String
-  thirdIntroImage: String
-  fourthIntroImage: String
+  introImages: [ImagesIntroImagesMutation]
 }
 
 schema {

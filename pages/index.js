@@ -5,85 +5,28 @@ import { useTina } from "tinacms/dist/edit-state";
 import Image from 'next/image';
 import SectionTitle from "../components/SectionTitle";
 import ReasonBubble from "../components/ReasonBubble";
-import { BackgroundWrapper, ContentWrapper, GalleryWrapper, ImageWrapper, IntroSection, MethodContent, MethodWrapper, ProcessPipe, ProcessStep, ProcessWrapper, ReasonsWrapper, ResolutionsWrapper, ResolutionTexts, ResolutionTitles, VideosWrapper } from "../styles/styles";
+import { 
+  BackgroundWrapper, 
+  ContentWrapper, 
+  GalleryWrapper, 
+  ImageWrapper, 
+  IntroBackgroundWrapper, 
+  IntroSection, 
+  MethodContent, 
+  MethodWrapper, 
+  ProcessPipe, 
+  ProcessStep, 
+  ProcessWrapper, 
+  ReasonsWrapper, 
+  ResolutionsWrapper, 
+  ResolutionTexts, 
+  ResolutionTitles,
+} from "../styles/styles";
 import Section from "../components/Section";
 import { useState } from "react";
 import ResolutionTitle from "../components/ResolutionTitle";
 import ResolutionText from "../components/ResolutionText";
-
-const query = `{
-  czech(relativePath: "page.mdx"){
-    reasonsTitle,
-    reasons {
-      reasonTitle,
-      reasonText,
-    },
-    methodTitle,
-    methodText,
-    resolutionTitle,
-    resolutions {
-      resolutionTitle,
-      resolutionText
-    },
-    processTitle,
-    processSteps {
-      processStepText
-    },
-    aboutTitle,
-    aboutText,
-    placeLookTitle,
-    reviewsTitle,
-    reviews {
-      reviewName,
-      reviewText
-    },
-    faqTitle,
-    faq {
-      faqTitle,
-      faqText
-    },
-    videosTitle,
-    contactTitle,
-    email,
-    phone,
-    price
-  },
-  english(relativePath: "page.mdx"){
-    reasonsTitle,
-    reasons {
-      reasonTitle,
-      reasonText,
-    },
-    methodTitle,
-    methodText,
-    resolutionTitle,
-    resolutions {
-      resolutionTitle,
-      resolutionText
-    },
-    processTitle,
-    processSteps {
-      processStepText
-    },
-    aboutTitle,
-    aboutText,
-    reviewsTitle,
-    reviews {
-      reviewName,
-      reviewText
-    },
-    faqTitle,
-    faq {
-      faqTitle,
-      faqText
-    }
-    videosTitle,
-    contactTitle,
-    email,
-    phone,
-    price
-  }
-}`;
+import { query } from '../content/const';
 
 export default function Page(props) {
   const [activeResolutionIndex, setActiveResolutionIndex] = useState(0);
@@ -95,6 +38,8 @@ export default function Page(props) {
     variables: {},
     data: props.data,
   });
+
+  const { introImages } = data.images
   
   const {
     reasonsTitle, 
@@ -121,7 +66,13 @@ export default function Page(props) {
 
   return (
     <Layout activeLanguage={language} onLanguageChange={setLanguage}>
-      <IntroSection></IntroSection>
+      <IntroSection>
+        {introImages.map(({introImage}, i) => (
+          <IntroBackgroundWrapper key={introImage} index={i} count={introImages.length}>
+            <Image src={introImage} layout='fill' objectFit='cover' />
+          </IntroBackgroundWrapper>
+        ))}
+      </IntroSection>
       <Section id='method'>
         <SectionTitle title={reasonsTitle} />
         <ReasonsWrapper>
@@ -146,15 +97,20 @@ export default function Page(props) {
         </ResolutionsWrapper>
       </Section>
       <Section id='process'>
-        <SectionTitle title={processTitle} />
-        <ProcessWrapper>
-          {processSteps.map(({processStepText}, i) => (
-            <>
-              <ProcessStep>{processStepText}</ProcessStep>
-              {processSteps.length !== i + 1 && <ProcessPipe />}
-            </>
-          ))}
-        </ProcessWrapper>
+        <BackgroundWrapper>
+          <Image src='/process-bg.jpg' layout='fill' objectFit='cover' />
+        </BackgroundWrapper>
+        <ContentWrapper>
+          <SectionTitle title={processTitle} />
+          <ProcessWrapper>
+            {processSteps.map(({processStepText}, i) => (
+              <>
+                <ProcessStep>{processStepText}</ProcessStep>
+                {processSteps.length !== i + 1 && <ProcessPipe />}
+              </>
+            ))}
+          </ProcessWrapper>
+        </ContentWrapper>
       </Section>
       <Section id='about'>
         <SectionTitle title={aboutTitle} />
@@ -176,10 +132,15 @@ export default function Page(props) {
         </GalleryWrapper>
       </Section>
       <Section id='reviews'>
-        <SectionTitle title={reviewsTitle} />
-        <div style={{display: 'flex', justifyContent: 'center'}}>
-          <div style={{width: '600px', height: '300px', background: '#eee', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Recenzeeeeeeeeee</div>
-        </div>
+        <BackgroundWrapper>
+          <Image src='/reviews-bg.jpg' layout='fill' objectFit='cover' />
+        </BackgroundWrapper>
+        <ContentWrapper>
+          <SectionTitle title={reviewsTitle} />
+          <div style={{display: 'flex', justifyContent: 'center'}}>
+            <div style={{width: '600px', height: '300px', background: '#eee', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Recenzeeeeeeeeee</div>
+          </div>
+        </ContentWrapper>
       </Section>
       <Section id='faq'>
         <SectionTitle title={faqTitle} />

@@ -353,24 +353,17 @@ const schema = defineSchema({
       format: "mdx",
       fields: [
         {
-          label: "First intro image",
-          name: "firstIntroImage",
-          type: "image"
-        },
-        {
-          label: "Second intro image",
-          name: "secondIntroImage",
-          type: "image"
-        },
-        {
-          label: "Third intro image",
-          name: "thirdIntroImage",
-          type: "image"
-        },
-        {
-          label: "Fourth intro image",
-          name: "fourthIntroImage",
-          type: "image"
+          label: "Intro images",
+          name: "introImages",
+          type: "object",
+          list: true,
+          fields: [
+            {
+              label: "Intro image",
+              name: "introImage",
+              type: "image"
+            }
+          ]
         }
       ]
     },
@@ -404,7 +397,7 @@ export const tinaConfig = defineConfig({
         }
 
         if (["images"].includes(collection.name)) {
-          if (document._sys.filename === "images") {
+          if (document._sys.filename === "page") {
             return "/";
           }
         }

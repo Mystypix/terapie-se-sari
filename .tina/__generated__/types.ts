@@ -436,12 +436,14 @@ export type EnglishConnection = Connection & {
   edges?: Maybe<Array<Maybe<EnglishConnectionEdges>>>;
 };
 
+export type ImagesIntroImages = {
+  __typename?: 'ImagesIntroImages';
+  introImage?: Maybe<Scalars['String']>;
+};
+
 export type Images = Node & Document & {
   __typename?: 'Images';
-  firstIntroImage?: Maybe<Scalars['String']>;
-  secondIntroImage?: Maybe<Scalars['String']>;
-  thirdIntroImage?: Maybe<Scalars['String']>;
-  fourthIntroImage?: Maybe<Scalars['String']>;
+  introImages?: Maybe<Array<Maybe<ImagesIntroImages>>>;
   id: Scalars['ID'];
   _sys: SystemInfo;
   _values: Scalars['JSON'];
@@ -454,11 +456,12 @@ export type ImageFilter = {
   in?: InputMaybe<Array<InputMaybe<Scalars['String']>>>;
 };
 
+export type ImagesIntroImagesFilter = {
+  introImage?: InputMaybe<ImageFilter>;
+};
+
 export type ImagesFilter = {
-  firstIntroImage?: InputMaybe<ImageFilter>;
-  secondIntroImage?: InputMaybe<ImageFilter>;
-  thirdIntroImage?: InputMaybe<ImageFilter>;
-  fourthIntroImage?: InputMaybe<ImageFilter>;
+  introImages?: InputMaybe<ImagesIntroImagesFilter>;
 };
 
 export type ImagesConnectionEdges = {
@@ -651,18 +654,19 @@ export type EnglishMutation = {
   price?: InputMaybe<Scalars['String']>;
 };
 
+export type ImagesIntroImagesMutation = {
+  introImage?: InputMaybe<Scalars['String']>;
+};
+
 export type ImagesMutation = {
-  firstIntroImage?: InputMaybe<Scalars['String']>;
-  secondIntroImage?: InputMaybe<Scalars['String']>;
-  thirdIntroImage?: InputMaybe<Scalars['String']>;
-  fourthIntroImage?: InputMaybe<Scalars['String']>;
+  introImages?: InputMaybe<Array<InputMaybe<ImagesIntroImagesMutation>>>;
 };
 
 export type CzechPartsFragment = { __typename?: 'Czech', reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined };
 
 export type EnglishPartsFragment = { __typename?: 'English', reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined };
 
-export type ImagesPartsFragment = { __typename?: 'Images', firstIntroImage?: string | null | undefined, secondIntroImage?: string | null | undefined, thirdIntroImage?: string | null | undefined, fourthIntroImage?: string | null | undefined };
+export type ImagesPartsFragment = { __typename?: 'Images', introImages?: Array<{ __typename: 'ImagesIntroImages', introImage?: string | null | undefined } | null | undefined> | null | undefined };
 
 export type CzechQueryVariables = Exact<{
   relativePath: Scalars['String'];
@@ -681,7 +685,7 @@ export type CzechConnectionQueryVariables = Exact<{
 }>;
 
 
-export type CzechConnectionQuery = { __typename?: 'Query', czechConnection: { __typename?: 'CzechConnection', totalCount: number, edges?: Array<{ __typename?: 'CzechConnectionEdges', node?: { __typename?: 'Czech', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
+export type CzechConnectionQuery = { __typename?: 'Query', czechConnection: { __typename?: 'CzechConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'CzechConnectionEdges', node?: { __typename?: 'Czech', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'CzechReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'CzechResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'CzechProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'CzechReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'CzechFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
 
 export type EnglishQueryVariables = Exact<{
   relativePath: Scalars['String'];
@@ -700,14 +704,14 @@ export type EnglishConnectionQueryVariables = Exact<{
 }>;
 
 
-export type EnglishConnectionQuery = { __typename?: 'Query', englishConnection: { __typename?: 'EnglishConnection', totalCount: number, edges?: Array<{ __typename?: 'EnglishConnectionEdges', node?: { __typename?: 'English', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
+export type EnglishConnectionQuery = { __typename?: 'Query', englishConnection: { __typename?: 'EnglishConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'EnglishConnectionEdges', node?: { __typename?: 'English', id: string, reasonsTitle?: string | null | undefined, methodTitle?: string | null | undefined, methodText?: any | null | undefined, resolutionTitle?: string | null | undefined, processTitle?: string | null | undefined, aboutTitle?: string | null | undefined, aboutText?: any | null | undefined, placeLookTitle?: string | null | undefined, reviewsTitle?: string | null | undefined, faqTitle?: string | null | undefined, videosTitle?: string | null | undefined, contactTitle?: string | null | undefined, email?: string | null | undefined, phone?: string | null | undefined, price?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, reasons?: Array<{ __typename: 'EnglishReasons', reasonTitle?: string | null | undefined, reasonText?: string | null | undefined } | null | undefined> | null | undefined, resolutions?: Array<{ __typename: 'EnglishResolutions', resolutionTitle?: string | null | undefined, resolutionText?: any | null | undefined } | null | undefined> | null | undefined, processSteps?: Array<{ __typename: 'EnglishProcessSteps', processStepText?: string | null | undefined } | null | undefined> | null | undefined, reviews?: Array<{ __typename: 'EnglishReviews', reviewName?: string | null | undefined, reviewText?: any | null | undefined } | null | undefined> | null | undefined, faq?: Array<{ __typename: 'EnglishFaq', faqTitle?: string | null | undefined, faqText?: any | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
 
 export type ImagesQueryVariables = Exact<{
   relativePath: Scalars['String'];
 }>;
 
 
-export type ImagesQuery = { __typename?: 'Query', images: { __typename?: 'Images', id: string, firstIntroImage?: string | null | undefined, secondIntroImage?: string | null | undefined, thirdIntroImage?: string | null | undefined, fourthIntroImage?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } };
+export type ImagesQuery = { __typename?: 'Query', images: { __typename?: 'Images', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, introImages?: Array<{ __typename: 'ImagesIntroImages', introImage?: string | null | undefined } | null | undefined> | null | undefined } };
 
 export type ImagesConnectionQueryVariables = Exact<{
   before?: InputMaybe<Scalars['String']>;
@@ -719,7 +723,7 @@ export type ImagesConnectionQueryVariables = Exact<{
 }>;
 
 
-export type ImagesConnectionQuery = { __typename?: 'Query', imagesConnection: { __typename?: 'ImagesConnection', totalCount: number, edges?: Array<{ __typename?: 'ImagesConnectionEdges', node?: { __typename?: 'Images', id: string, firstIntroImage?: string | null | undefined, secondIntroImage?: string | null | undefined, thirdIntroImage?: string | null | undefined, fourthIntroImage?: string | null | undefined, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string } } | null | undefined } | null | undefined> | null | undefined } };
+export type ImagesConnectionQuery = { __typename?: 'Query', imagesConnection: { __typename?: 'ImagesConnection', totalCount: number, pageInfo: { __typename?: 'PageInfo', hasPreviousPage: boolean, hasNextPage: boolean, startCursor: string, endCursor: string }, edges?: Array<{ __typename?: 'ImagesConnectionEdges', node?: { __typename?: 'Images', id: string, _sys: { __typename?: 'SystemInfo', filename: string, basename: string, breadcrumbs: Array<string>, path: string, relativePath: string, extension: string }, introImages?: Array<{ __typename: 'ImagesIntroImages', introImage?: string | null | undefined } | null | undefined> | null | undefined } | null | undefined } | null | undefined> | null | undefined } };
 
 export const CzechPartsFragmentDoc = gql`
     fragment CzechParts on Czech {
@@ -809,10 +813,10 @@ export const EnglishPartsFragmentDoc = gql`
     `;
 export const ImagesPartsFragmentDoc = gql`
     fragment ImagesParts on Images {
-  firstIntroImage
-  secondIntroImage
-  thirdIntroImage
-  fourthIntroImage
+  introImages {
+    __typename
+    introImage
+  }
 }
     `;
 export const CzechDocument = gql`
@@ -843,6 +847,12 @@ export const CzechConnectionDocument = gql`
     sort: $sort
     filter: $filter
   ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
     totalCount
     edges {
       node {
@@ -891,6 +901,12 @@ export const EnglishConnectionDocument = gql`
     sort: $sort
     filter: $filter
   ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
     totalCount
     edges {
       node {
@@ -939,6 +955,12 @@ export const ImagesConnectionDocument = gql`
     sort: $sort
     filter: $filter
   ) {
+    pageInfo {
+      hasPreviousPage
+      hasNextPage
+      startCursor
+      endCursor
+    }
     totalCount
     edges {
       node {
