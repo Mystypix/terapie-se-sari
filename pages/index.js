@@ -5,6 +5,7 @@ import { useTina } from "tinacms/dist/edit-state";
 import Image from 'next/image';
 import SectionTitle from "../components/SectionTitle";
 import ReasonBubble from "../components/ReasonBubble";
+import { Carousel } from 'react-responsive-carousel';
 import { 
   BackgroundWrapper, 
   ContentWrapper, 
@@ -27,6 +28,8 @@ import { useState } from "react";
 import ResolutionTitle from "../components/ResolutionTitle";
 import ResolutionText from "../components/ResolutionText";
 import { query } from '../content/const';
+import "react-responsive-carousel/lib/styles/carousel.min.css";
+import SectionTransition from "../components/SectionTransition";
 
 export default function Page(props) {
   const [activeResolutionIndex, setActiveResolutionIndex] = useState(0);
@@ -72,6 +75,7 @@ export default function Page(props) {
             <Image src={introImage} layout='fill' objectFit='cover' />
           </IntroBackgroundWrapper>
         ))}
+        <SectionTransition />
       </IntroSection>
       <Section id='method'>
         <SectionTitle title={reasonsTitle} />
@@ -80,10 +84,12 @@ export default function Page(props) {
         </ReasonsWrapper>
       </Section>
       <MethodWrapper>
+        <SectionTransition position='top' />
         <MethodContent>
           <SectionTitle title={methodTitle} />
           <TinaMarkdown content={methodText} />
         </MethodContent>
+        <SectionTransition />
       </MethodWrapper>
       <Section>
         <SectionTitle title={resolutionTitle} />
@@ -97,6 +103,7 @@ export default function Page(props) {
         </ResolutionsWrapper>
       </Section>
       <Section id='process'>
+        <SectionTransition position='top' />
         <BackgroundWrapper>
           <Image src='/process-bg.jpg' layout='fill' objectFit='cover' />
         </BackgroundWrapper>
@@ -111,13 +118,15 @@ export default function Page(props) {
             ))}
           </ProcessWrapper>
         </ContentWrapper>
+        <SectionTransition />
       </Section>
       <Section id='about'>
         <SectionTitle title={aboutTitle} />
         <div style={{margin: '0 auto', width: '600px', height: '400px', background: 'yellow', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Video</div>
         <div style={{textAlign: 'center', padding: '0 10px', lineHeight: '30px', margin: '20px 0', background: '#eee', display: 'inline-block'}}>Vice</div>
       </Section>
-      <Section>
+      <Section background='#dfecff'>
+        <SectionTransition position='top' />
         <SectionTitle title={placeLookTitle} />
         <GalleryWrapper>
           <ImageWrapper>
@@ -130,28 +139,33 @@ export default function Page(props) {
             <Image src='/look-03.jpg' layout='fill' objectFit='cover' />
           </ImageWrapper>
         </GalleryWrapper>
+        <SectionTransition />
       </Section>
       <Section id='reviews'>
-        <BackgroundWrapper>
-          <Image src='/reviews-bg.jpg' layout='fill' objectFit='cover' />
-        </BackgroundWrapper>
-        <ContentWrapper>
-          <SectionTitle title={reviewsTitle} />
-          <div style={{display: 'flex', justifyContent: 'center'}}>
-            <div style={{width: '600px', height: '300px', background: '#eee', display: 'flex', justifyContent: 'center', alignItems: 'center'}}>Recenzeeeeeeeeee</div>
-          </div>
-        </ContentWrapper>
-      </Section>
-      <Section id='faq'>
-        <SectionTitle title={faqTitle} />
-        <div>
-          {faq.map(({faqTitle, faqText}, i) => (
+        <SectionTitle title={reviewsTitle} />
+        <Carousel showThumbs={false}>
+          {reviews.map(({reviewName, reviewText}) => (
             <div>
-              <div>{faqTitle}</div>
-              <TinaMarkdown content={faqText} />
+              <div>{reviewName}</div>
+              <TinaMarkdown content={reviewText} />
             </div>
           ))}
-        </div>
+        </Carousel>
+      </Section>
+      <Section id='faq' background='#dffff3'>
+        <SectionTransition position='top' />
+        <ContentWrapper>
+          <SectionTitle title={faqTitle} />
+          <div>
+            {faq.map(({faqTitle, faqText}, i) => (
+              <div>
+                <div>{faqTitle}</div>
+                <TinaMarkdown content={faqText} />
+              </div>
+            ))}
+          </div>
+        </ContentWrapper>
+        <SectionTransition />
       </Section>
       <Section>
         <SectionTitle title={videosTitle} />
@@ -162,16 +176,25 @@ export default function Page(props) {
         </GalleryWrapper>
       </Section>
       <Section id='contact' padding='200px 0'>
+        <SectionTransition position='top' />
         <BackgroundWrapper>
           <Image src='/contact-and-price-bg.jpg' layout='fill' objectFit='cover' />
         </BackgroundWrapper>
         <ContentWrapper>
           <SectionTitle title={contactTitle} />
-          <div style={{textAlign: 'center'}}>
-            <div>{email}</div>
-            <div>{phone}</div>
-            <div>Cena za jedno sezení</div>
-            <div>{price}</div>
+          <div style={{display: 'inline-block', margin: '0 auto'}}>
+            <div>
+              <span>Email: </span>
+              <a href={`mailto:${email}`}>{email}</a>
+            </div>
+            <div>
+              <span>Telefon: </span>
+              <a href={`tel:${phone}`}>{phone}</a>
+            </div>
+            <div>
+              <span>Cena za jedno sezení: </span>
+              <span>{price}</span>
+            </div>
           </div>
         </ContentWrapper>
       </Section>

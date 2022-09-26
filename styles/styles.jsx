@@ -33,6 +33,8 @@ export const ReasonsWrapper = styled.div`
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    margin: 0 auto;
+    max-with: 1439px;
 `
 
 export const MethodWrapper = styled.div`
