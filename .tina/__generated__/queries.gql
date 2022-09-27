@@ -32,6 +32,7 @@ query czechConnection($before: String, $after: String, $first: Float, $last: Flo
     }
     totalCount
     edges {
+      cursor
       node {
         ... on Document {
           _sys {
@@ -84,6 +85,7 @@ query englishConnection($before: String, $after: String, $first: Float, $last: F
     }
     totalCount
     edges {
+      cursor
       node {
         ... on Document {
           _sys {
@@ -136,6 +138,7 @@ query imagesConnection($before: String, $after: String, $first: Float, $last: Fl
     }
     totalCount
     edges {
+      cursor
       node {
         ... on Document {
           _sys {

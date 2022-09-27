@@ -38,6 +38,7 @@ export const ReasonsWrapper = styled.div`
 `
 
 export const MethodWrapper = styled.div`
+    position: relative;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -52,6 +53,7 @@ export const MethodContent = styled.div`
     max-width: 600px;
     text-align: center;
     background: #fff;
+    box-shadow: 0 3px 10px 0 #fff;
 `
 
 export const ProcessWrapper = styled.div`
@@ -119,14 +121,19 @@ export const ReviewWrapper = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
     margin: 0 auto;
     max-width: 600px;
     padding: 20px;
     background: #eee;
 `
 
+export const ReviewContent = styled.div`
+    display: inline-block;
+`
+
 export const ReviewName = styled.p`
+    margin-top: 10px;
+    font-size: 16px;
     text-align: right;
 `
 
@@ -156,4 +163,18 @@ export const FaqContent = styled.div`
     opacity: ${(props) => props.active ? '1' : '0'};
     max-height: ${(props) => props.active ? '1000px' : '0'};
     pointer-events: ${(props) => props.active ? 'all' : 'none'};
+`
+
+export const ContactTable = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+
+    * {
+        font-size: 18px;
+    }
+`
+
+export const ContactLabel = styled.div`
+    text-align: right;
 `

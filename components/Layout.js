@@ -1,6 +1,6 @@
 import Link from 'next/link'
 import Head from 'next/head'
-import styled from 'styled-components'
+import styled, { css } from 'styled-components'
 import { navigationItemsConfig } from '../content/const'
 
 export const Layout = ({
@@ -23,6 +23,7 @@ export const Layout = ({
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin='true' />
         <link href="https://fonts.googleapis.com/css2?family=Dosis:wght@300;400&family=Oooh+Baby&family=WindSong&display=swap" rel="stylesheet"></link>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
       </Head>
       <Header>
         <LogoWrapper>
@@ -62,11 +63,40 @@ const NavLink = ({ href, children }) => {
   )
 }
 
-const StyledLink = styled.a`
+const LinkStyles = css`
+  position: relative;
   margin: 0 10px;
   padding: 0 5px;
+  font-size: 18px;
+  line-height: 40px;
   text-decoration: none;
   color: #1E1E1E;
+  overflow: hidden;
+  transition: color .25s;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    transform: translateX(-100%);
+    width: 100%;
+    height: 2px;
+    transition: transform .25s ease-out;
+    background: #9cd3d7;
+  }
+
+  &:hover {
+    color: #42858a;
+
+    &::before {
+      transform: translateX(0);
+    }
+  }
+`
+
+const StyledLink = styled.a`
+  ${LinkStyles}
 `
 
 const Header = styled.header`
@@ -98,6 +128,7 @@ const Separator = styled.div`
 `
 
 const LanguageButton = styled.button`
+  ${LinkStyles}
   border: 0;
   background: none;
   cursor: pointer;

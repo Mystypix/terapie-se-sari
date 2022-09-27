@@ -8,6 +8,8 @@ import ReasonBubble from "../components/ReasonBubble";
 import { Carousel } from 'react-responsive-carousel';
 import { 
   BackgroundWrapper, 
+  ContactLabel, 
+  ContactTable, 
   ContentWrapper, 
   FaqContent, 
   FaqTitle, 
@@ -25,6 +27,7 @@ import {
   ResolutionsWrapper, 
   ResolutionTexts, 
   ResolutionTitles,
+  ReviewContent,
   ReviewName,
   ReviewWrapper,
 } from "../styles/styles";
@@ -151,8 +154,10 @@ export default function Page(props) {
         <Carousel showThumbs={false} infiniteLoop showStatus={false} dynamicHeight>
           {reviews.map(({reviewName, reviewText}) => (
             <ReviewWrapper>
-              <TinaMarkdown content={reviewText} />
-              <ReviewName>{reviewName}</ReviewName>
+              <ReviewContent>
+                <TinaMarkdown content={reviewText} />
+                <ReviewName>{reviewName}</ReviewName>
+              </ReviewContent>
             </ReviewWrapper>
           ))}
         </Carousel>
@@ -187,20 +192,14 @@ export default function Page(props) {
         </BackgroundWrapper>
         <ContentWrapper>
           <SectionTitle title={contactTitle} />
-          <div style={{display: 'inline-block', margin: '0 auto'}}>
-            <div>
-              <span>Email: </span>
-              <a href={`mailto:${email}`}>{email}</a>
-            </div>
-            <div>
-              <span>Telefon: </span>
-              <a href={`tel:${phone}`}>{phone}</a>
-            </div>
-            <div>
-              <span>Cena za jedno sezení: </span>
-              <span>{price}</span>
-            </div>
-          </div>
+          <ContactTable>
+            <ContactLabel>Email: </ContactLabel>
+            <a href={`mailto:${email}`}>{email}</a>
+            <ContactLabel>Telefon: </ContactLabel>
+            <a href={`tel:${phone}`}>{phone}</a>
+            <ContactLabel>Cena za jedno sezení: </ContactLabel>
+            <span>{price}</span>
+          </ContactTable>
         </ContentWrapper>
       </Section>
     </Layout>

@@ -18,7 +18,7 @@ const Wrapper = styled.div`
     transition: transform .25s, opacity .25s;
     margin-top: -1px;
     margin-left: -1px;
-    border: 1px solid #bbb;
+    border: 1px solid #9cd3d7;
     padding: 10px;
     pointer-events: none;
 `
