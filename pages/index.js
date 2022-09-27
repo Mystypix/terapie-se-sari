@@ -9,6 +9,9 @@ import { Carousel } from 'react-responsive-carousel';
 import { 
   BackgroundWrapper, 
   ContentWrapper, 
+  FaqContent, 
+  FaqTitle, 
+  FaqWrapper, 
   GalleryWrapper, 
   ImageWrapper, 
   IntroBackgroundWrapper, 
@@ -22,6 +25,8 @@ import {
   ResolutionsWrapper, 
   ResolutionTexts, 
   ResolutionTitles,
+  ReviewName,
+  ReviewWrapper,
 } from "../styles/styles";
 import Section from "../components/Section";
 import { useState } from "react";
@@ -143,12 +148,12 @@ export default function Page(props) {
       </Section>
       <Section id='reviews'>
         <SectionTitle title={reviewsTitle} />
-        <Carousel showThumbs={false}>
+        <Carousel showThumbs={false} infiniteLoop showStatus={false} dynamicHeight>
           {reviews.map(({reviewName, reviewText}) => (
-            <div>
-              <div>{reviewName}</div>
+            <ReviewWrapper>
               <TinaMarkdown content={reviewText} />
-            </div>
+              <ReviewName>{reviewName}</ReviewName>
+            </ReviewWrapper>
           ))}
         </Carousel>
       </Section>
@@ -156,14 +161,14 @@ export default function Page(props) {
         <SectionTransition position='top' />
         <ContentWrapper>
           <SectionTitle title={faqTitle} />
-          <div>
+          <FaqWrapper>
             {faq.map(({faqTitle, faqText}, i) => (
-              <div>
-                <div>{faqTitle}</div>
-                <TinaMarkdown content={faqText} />
-              </div>
+              <>
+                <FaqTitle active={i === activeFaqIndex} onClick={() => setActiveFaqIndex(i)}>{faqTitle}</FaqTitle>
+                <FaqContent active={i === activeFaqIndex}><TinaMarkdown content={faqText} /></FaqContent>
+              </>
             ))}
-          </div>
+          </FaqWrapper>
         </ContentWrapper>
         <SectionTransition />
       </Section>
