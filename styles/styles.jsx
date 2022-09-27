@@ -120,6 +120,8 @@ export const ReviewWrapper = styled.div`
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    margin: 0 auto;
+    max-width: 600px;
     padding: 20px;
     background: #eee;
 `
@@ -131,18 +133,26 @@ export const ReviewName = styled.p`
 export const FaqWrapper = styled.div`
     display: flex;
     flex-direction: column;
+    margin: 0 auto;
+    max-width: 800px;
 `
 
 export const FaqTitle = styled.div`
     margin-top: -1px;
     border: 1px solid #eee;
-    padding: 0 20px;
-    line-height: 60px;
+    padding: 20px;
     background: ${(props) => props.active ? '#eee' : '#fff'};
+    cursor: ${(props) => props.active ? 'default' : 'active'};
+    transition: background .25s;
+
+    &:hover {
+        background: #eee;
+    }
 `
 
 export const FaqContent = styled.div`
     border: 1px solid #eee;
+    padding: 20px;
     opacity: ${(props) => props.active ? '1' : '0'};
     max-height: ${(props) => props.active ? '1000px' : '0'};
     pointer-events: ${(props) => props.active ? 'all' : 'none'};

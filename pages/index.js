@@ -38,7 +38,7 @@ import SectionTransition from "../components/SectionTransition";
 
 export default function Page(props) {
   const [activeResolutionIndex, setActiveResolutionIndex] = useState(0);
-  const [activeFaqIndex, setActiveFaqIndex] = useState(0);
+  const [activeFaqIndex, setActiveFaqIndex] = useState(-1);
   const [language, setLanguage] = useState('czech');
   // data passes though in production mode and data is updated to the sidebar data in edit-mode
   const { data } = useTina({
