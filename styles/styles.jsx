@@ -117,6 +117,23 @@ export const ContentWrapper = styled.div`
     z-index: 1;
 `
 
+export const AboutVideoWrapper = styled.div`
+    margin: 0 auto 30px;
+    width: 800px;
+    height: 550px;
+`
+
+export const AboutButton = styled.button`
+    display: block;
+    margin: 0 auto;
+    border: 0;
+    padding: 0 20px;
+    font-size: 20px;
+    line-height: 40px;
+    background: #9cd3d7;
+    cursor: pointer;
+`
+
 export const ReviewWrapper = styled.div`
     display: flex;
     align-items: center;

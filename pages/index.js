@@ -7,6 +7,8 @@ import SectionTitle from "../components/SectionTitle";
 import ReasonBubble from "../components/ReasonBubble";
 import { Carousel } from 'react-responsive-carousel';
 import { 
+  AboutButton,
+  AboutVideoWrapper,
   BackgroundWrapper, 
   ContactLabel, 
   ContactTable, 
@@ -130,8 +132,10 @@ export default function Page(props) {
       </Section>
       <Section id='about'>
         <SectionTitle title={aboutTitle} />
-        <div style={{margin: '0 auto', width: '600px', height: '400px', background: 'yellow', display: 'flex', alignItems: 'center', justifyContent: 'center'}}>Video</div>
-        <div style={{textAlign: 'center', padding: '0 10px', lineHeight: '30px', margin: '20px 0', background: '#eee', display: 'inline-block'}}>Vice</div>
+        <AboutVideoWrapper>
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/aR-KAldshAE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullscreen></iframe>
+        </AboutVideoWrapper>
+        <AboutButton>Více</AboutButton>
       </Section>
       <Section background='#dfecff'>
         <SectionTransition position='top' />
