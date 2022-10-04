@@ -19,6 +19,6 @@ const Wrapper = styled.div`
     margin-top: -1px;
     margin-left: -1px;
     border: 1px solid #9cd3d7;
-    padding: 10px;
+    padding: 15px;
     pointer-events: none;
 `

@@ -1,12 +1,24 @@
 import styled from 'styled-components';
 
 export const IntroBackgroundWrapper = styled.div`
-    animation: introBgChange ${(props) => props.count * 4}s linear ${(props) => props.index * 4}s infinite;
+    animation: introBgChange ${(props) => props.count * (6 + 1)}s linear ${(props) => props.index * (6 + 1)}s infinite;
 
     @keyframes introBgChange {
-        0% { opacity: 1 },
-        75% { opacity: 1 },
-        100% { opacity: 0 },
+        0% {
+            opacity:1;
+        }
+        17% {
+            opacity:1;
+        }
+        25% {
+            opacity:0;
+        }
+        92% {
+            opacity:0;
+        }
+        100% {
+            opacity:1;
+        }
     }
 `
 
@@ -53,7 +65,6 @@ export const MethodContent = styled.div`
     max-width: 600px;
     text-align: center;
     background: #fff;
-    box-shadow: 0 3px 10px 0 #fff;
 `
 
 export const ProcessWrapper = styled.div`
@@ -134,6 +145,11 @@ export const AboutButton = styled.button`
     cursor: pointer;
 `
 
+export const ReviewsWrapper = styled.div`
+    margin: 0 auto;
+    max-width: 800px;
+`
+
 export const ReviewWrapper = styled.div`
     display: flex;
     align-items: center;
@@ -164,9 +180,9 @@ export const FaqWrapper = styled.div`
 export const FaqTitle = styled.div`
     margin-top: -1px;
     border: 1px solid #eee;
-    padding: 20px;
+    padding: 15px;
     background: ${(props) => props.active ? '#eee' : '#fff'};
-    cursor: ${(props) => props.active ? 'default' : 'active'};
+    cursor: ${(props) => props.active ? 'default' : 'pointer'};
     transition: background .25s;
 
     &:hover {
@@ -176,7 +192,7 @@ export const FaqTitle = styled.div`
 
 export const FaqContent = styled.div`
     border: 1px solid #eee;
-    padding: 20px;
+    padding: 15px;
     opacity: ${(props) => props.active ? '1' : '0'};
     max-height: ${(props) => props.active ? '1000px' : '0'};
     pointer-events: ${(props) => props.active ? 'all' : 'none'};
@@ -185,9 +201,12 @@ export const FaqContent = styled.div`
 export const ContactTable = styled.div`
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 20px;
+    margin: 0 auto;
+    max-width: 600px;
 
     * {
+        border: 1px solid #666;
+        padding: 10px;
         font-size: 18px;
     }
 `

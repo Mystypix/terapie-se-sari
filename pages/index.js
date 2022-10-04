@@ -5,6 +5,7 @@ import { useTina } from "tinacms/dist/edit-state";
 import Image from 'next/image';
 import SectionTitle from "../components/SectionTitle";
 import ReasonBubble from "../components/ReasonBubble";
+import Modal from 'react-modal';
 import { Carousel } from 'react-responsive-carousel';
 import { 
   AboutButton,
@@ -31,6 +32,7 @@ import {
   ResolutionTitles,
   ReviewContent,
   ReviewName,
+  ReviewsWrapper,
   ReviewWrapper,
 } from "../styles/styles";
 import Section from "../components/Section";
@@ -45,6 +47,7 @@ export default function Page(props) {
   const [activeResolutionIndex, setActiveResolutionIndex] = useState(0);
   const [activeFaqIndex, setActiveFaqIndex] = useState(-1);
   const [language, setLanguage] = useState('czech');
+  const [isAboutModalOpen, setIsAboutModalOpen] = useState(false);
   // data passes though in production mode and data is updated to the sidebar data in edit-mode
   const { data } = useTina({
     query,
@@ -82,7 +85,7 @@ export default function Page(props) {
       <IntroSection>
         {introImages.map(({introImage}, i) => (
           <IntroBackgroundWrapper key={introImage} index={i} count={introImages.length}>
-            <Image src={introImage} layout='fill' objectFit='cover' />
+            <Image src={introImage} layout='fill' objectFit='cover' priority />
           </IntroBackgroundWrapper>
         ))}
         <SectionTransition />
@@ -133,9 +136,17 @@ export default function Page(props) {
       <Section id='about'>
         <SectionTitle title={aboutTitle} />
         <AboutVideoWrapper>
-          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/aR-KAldshAE" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullscreen></iframe>
+          <iframe width="100%" height="100%" src="https://www.youtube.com/embed/aR-KAldshAE" frameBorder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowFullScreen></iframe>
         </AboutVideoWrapper>
-        <AboutButton>Více</AboutButton>
+        <AboutButton onClick={() => setIsAboutModalOpen(true)}>Více</AboutButton>
+        <Modal
+          isOpen={isAboutModalOpen}
+          onRequestClose={() => setIsAboutModalOpen(false)}
+          preventScroll
+          // style={customStyles}
+        >
+          <TinaMarkdown>{aboutText}</TinaMarkdown>
+        </Modal>
       </Section>
       <Section background='#dfecff'>
         <SectionTransition position='top' />
@@ -155,16 +166,18 @@ export default function Page(props) {
       </Section>
       <Section id='reviews'>
         <SectionTitle title={reviewsTitle} />
-        <Carousel showThumbs={false} infiniteLoop showStatus={false} dynamicHeight>
-          {reviews.map(({reviewName, reviewText}) => (
-            <ReviewWrapper>
-              <ReviewContent>
-                <TinaMarkdown content={reviewText} />
-                <ReviewName>{reviewName}</ReviewName>
-              </ReviewContent>
-            </ReviewWrapper>
-          ))}
-        </Carousel>
+        <ReviewsWrapper>
+          <Carousel showThumbs={false} infiniteLoop showStatus={false} dynamicHeight>
+            {reviews.map(({reviewName, reviewText}) => (
+              <ReviewWrapper>
+                <ReviewContent>
+                  <TinaMarkdown content={reviewText} />
+                  <ReviewName>{reviewName}</ReviewName>
+                </ReviewContent>
+              </ReviewWrapper>
+            ))}
+          </Carousel>
+        </ReviewsWrapper>
       </Section>
       <Section id='faq' background='#dffff3'>
         <SectionTransition position='top' />
