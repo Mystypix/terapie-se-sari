@@ -364,7 +364,25 @@ const schema = defineSchema({
               type: "image"
             }
           ]
-        }
+        },
+        {
+          label: "Personal image",
+          name: "personalImage",
+          type: "image"
+        },
+        {
+          label: "Office images",
+          name: "officeImages",
+          type: "object",
+          list: true,
+          fields: [
+            {
+              label: "Office image",
+              name: "officeImage",
+              type: "image"
+            }
+          ]
+        },
       ]
     },
   ],
